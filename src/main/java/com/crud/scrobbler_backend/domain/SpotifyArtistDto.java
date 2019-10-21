@@ -10,13 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SpotifyTrackDto {
+public class SpotifyArtistDto {
     @JsonProperty("id")
     private String id;
 
     @JsonProperty("name")
     private String name;
-
-    @JsonProperty("artist")
-    private SpotifyArtist artist;
 }

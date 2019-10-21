@@ -1,7 +1,6 @@
 package com.crud.scrobbler_backend.controller;
 
-import com.crud.scrobbler_backend.domain.UsersArtist;
-import com.crud.scrobbler_backend.domain.UsersArtistDto;
+import com.crud.scrobbler_backend.domain.ArtistDto;
 import com.crud.scrobbler_backend.exceptions.UserNotFoundException;
 import com.crud.scrobbler_backend.exceptions.UsersArtistNotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,7 @@ import java.util.List;
 public class UsersArtistsController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/usersArtists")
-    public List<UsersArtistDto> getUsersArtists(@RequestParam long userId) throws UserNotFoundException {
+    public List<ArtistDto> getUsersArtists(@RequestParam long userId) throws UserNotFoundException {
         return new ArrayList<>();
     }
 
@@ -28,12 +27,12 @@ public class UsersArtistsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/usersArtists")
-    public List<UsersArtistDto> getTopFive(@RequestParam long userId) throws UserNotFoundException {
+    public List<ArtistDto> getTopFive(@RequestParam long userId) throws UserNotFoundException {
         return new ArrayList<>();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/usersArtists")
-    public UsersArtistDto getArtist(@RequestParam long artistsId) {
-        return new UsersArtistDto();
+    public ArtistDto getArtist(@RequestParam long artistsId) {
+        return new ArtistDto();
     }
 }

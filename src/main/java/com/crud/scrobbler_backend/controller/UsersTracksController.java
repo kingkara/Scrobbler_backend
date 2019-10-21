@@ -1,7 +1,6 @@
 package com.crud.scrobbler_backend.controller;
 
-import com.crud.scrobbler_backend.domain.UsersTrack;
-import com.crud.scrobbler_backend.domain.UsersTrackDto;
+import com.crud.scrobbler_backend.domain.TrackDto;
 import com.crud.scrobbler_backend.exceptions.UserNotFoundException;
 import com.crud.scrobbler_backend.exceptions.UsersTrackNotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,7 @@ import java.util.List;
 public class UsersTracksController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/usersTracks")
-    public List<UsersTrackDto> getUsersTracks(@RequestParam long userId) throws UserNotFoundException {
+    public List<TrackDto> getUsersTracks(@RequestParam long userId) throws UserNotFoundException {
         return new ArrayList<>();
     }
 
@@ -27,17 +26,17 @@ public class UsersTracksController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/usersTracks")
-    public List<UsersTrackDto> getFavouriteTracks(@RequestParam long userId) throws UserNotFoundException {
+    public List<TrackDto> getFavouriteTracks(@RequestParam long userId) throws UserNotFoundException {
         return new ArrayList<>();
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/usersTracks")
-    public UsersTrackDto changeFavouriteStatus (@RequestParam long usersTrackId) throws UsersTrackNotFoundException {
-        return new UsersTrackDto();
+    public TrackDto changeFavouriteStatus (@RequestParam long usersTrackId) throws UsersTrackNotFoundException {
+        return new TrackDto();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/usersTracks")
-    public List<UsersTrackDto> getTopFive(@RequestParam long userId) throws UserNotFoundException {
+    public List<TrackDto> getTopFive(@RequestParam long userId) throws UserNotFoundException {
         return new ArrayList<>();
     }
 }

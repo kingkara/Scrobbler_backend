@@ -5,8 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class SpotifyTrack {
+public class SpotifyArtist {
     private String id;
     private String name;
-    private SpotifyArtist artist;
 }
