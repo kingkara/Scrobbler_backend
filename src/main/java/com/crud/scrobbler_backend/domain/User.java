@@ -34,7 +34,6 @@ public class User {
     private String email;
 
     @Setter
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "")
     @Column(name = "SPOTIFY_USER_ID")
     private long spotifyId;
 

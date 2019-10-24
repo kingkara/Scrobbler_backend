@@ -27,6 +27,10 @@ public class Track {
     @Column(name = "TITLE")
     private String title;
 
+    @Setter
+    @Column(name = "FAVOURITE")
+    private boolean favouriteStatus;
+
     @Column
     private long count;
 
@@ -35,9 +39,8 @@ public class Track {
     @JoinColumn(name = "ARTIST_ID")
     private Artist artist;
 
-//    @OneToOne (cascade = CascadeType.ALL, mappedBy = "")
     @Column(name = "SPOTIFY_TRACK_ID")
-    private SpotifyTrack spotifyTrack;
+    private long spotifyTrack;
 
     @ManyToMany
     @JoinTable(

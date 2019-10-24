@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping ("/v1")
 public class CommentController {
 
-    @RequestMapping(method = RequestMethod.GET,value = "/comments")
-    public List<CommentDto> getComments(@RequestParam long trackId) throws TrackNotFoundException {
+    @RequestMapping(method = RequestMethod.GET,value = "/comments/{trackId}")
+    public List<CommentDto> getComments(@PathVariable long trackId) throws TrackNotFoundException {
         return new ArrayList<>();
     }
 
@@ -27,8 +28,8 @@ public class CommentController {
         return new CommentDto();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/comments")
-    public void deleteComment (@RequestParam long commentId) throws CommentNotFoundException {
+    @RequestMapping(method = RequestMethod.DELETE, value = "/comments/{commentId}")
+    public void deleteComment (@PathVariable long commentId) throws CommentNotFoundException {
 
     }
 }

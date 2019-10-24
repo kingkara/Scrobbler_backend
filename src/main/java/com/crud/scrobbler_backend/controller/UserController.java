@@ -5,12 +5,13 @@ import com.crud.scrobbler_backend.domain.UserDto;
 import com.crud.scrobbler_backend.exceptions.UserNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/v1")
 public class UserController {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/user")
-    public User getUser(@RequestParam long userId) throws UserNotFoundException {
+    @RequestMapping(method = RequestMethod.GET, value = "/user/{userId}")
+    public User getUser(@PathVariable long userId) throws UserNotFoundException {
         return new User();
     }
 
@@ -24,8 +25,8 @@ public class UserController {
         return new UserDto();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/user")
-    public void deleteUser(@RequestParam long userId) throws UserNotFoundException {
+    @RequestMapping(method = RequestMethod.DELETE, value = "/user/{userId}")
+    public void deleteUser(@PathVariable long userId) throws UserNotFoundException {
 
     }
 }
