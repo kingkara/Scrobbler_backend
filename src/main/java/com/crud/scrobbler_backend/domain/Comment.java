@@ -12,8 +12,10 @@ import javax.persistence.*;
 @Table(name = "COMMENTS")
 public class Comment {
 
-    public Comment(String text) {
+    public Comment(String text, User user, Track track) {
         this.text = text;
+        this.user = user;
+        this.track = track;
     }
 
     @Id

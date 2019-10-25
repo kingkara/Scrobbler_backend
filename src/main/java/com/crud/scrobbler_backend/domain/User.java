@@ -14,10 +14,13 @@ import java.util.List;
 @Table(name = "USERS")
 public class User {
 
-    public User(String username, String email, long spotifyId) {
+    public User(String username, String email, long spotifyId, List<Artist> artists, List<Track> tracks, List<Comment> comments) {
         this.username = username;
         this.email = email;
         this.spotifyId = spotifyId;
+        this.artists = artists;
+        this.tracks = tracks;
+        this.comments = comments;
     }
 
     @Id

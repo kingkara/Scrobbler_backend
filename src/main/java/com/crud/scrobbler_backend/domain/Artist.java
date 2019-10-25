@@ -3,7 +3,6 @@ package com.crud.scrobbler_backend.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,8 +14,12 @@ import java.util.List;
 @Table(name = "ARTISTS")
 public class Artist {
 
-    public Artist(String name) {
+    public Artist(String name, long count, long spotifyId, List<User> users, List<Track> tracks) {
         this.name = name;
+        this.count = count;
+        this.spotifyId = spotifyId;
+        this.users = users;
+        this.tracks = tracks;
     }
 
     @Id

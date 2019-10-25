@@ -13,9 +13,14 @@ import java.util.List;
 @Table(name = "TRACKS")
 public class Track {
 
-    public Track(String title, Artist artist) {
+    public Track(String title, boolean favouriteStatus, long count, Artist artist, long spotifyTrack, List<User> users, List<Comment> comments) {
         this.title = title;
+        this.favouriteStatus = favouriteStatus;
+        this.count = count;
         this.artist = artist;
+        this.spotifyTrack = spotifyTrack;
+        this.users = users;
+        this.comments = comments;
     }
 
     @Id

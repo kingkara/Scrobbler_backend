@@ -3,6 +3,7 @@ package com.crud.scrobbler_backend.services;
 import com.crud.scrobbler_backend.domain.Track;
 import com.crud.scrobbler_backend.exceptions.TrackNotFoundException;
 import com.crud.scrobbler_backend.exceptions.UserNotFoundException;
+import com.crud.scrobbler_backend.exceptions.UsersTrackNotFoundException;
 import com.crud.scrobbler_backend.repository.TracksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class TracksService {
         return repository.findAllByUsers(userId);
     }
 
-    public void deleteTrack(final long id) throws TrackNotFoundException {
-        Track trackToDelete = repository.findById(id).orElseThrow(TrackNotFoundException::new);
+    public void deleteTrack(final long id) throws UsersTrackNotFoundException {
+        Track trackToDelete = repository.findById(id).orElseThrow(UsersTrackNotFoundException::new);
         repository.delete(trackToDelete);
     }
 
@@ -27,8 +28,8 @@ public class TracksService {
         return repository.findAllByFavouriteStatusAndUsers(true, userId);
     }
 
-    public Track changeFavouriteStatus(final long id) throws TrackNotFoundException {
-        Track trackToUpdate = repository.findById(id).orElseThrow(TrackNotFoundException::new);
+    public Track changeFavouriteStatus(final long id) throws UsersTrackNotFoundException  {
+        Track trackToUpdate = repository.findById(id).orElseThrow(UsersTrackNotFoundException ::new);
         if(trackToUpdate.isFavouriteStatus()) {
             trackToUpdate.setFavouriteStatus(false);
         }

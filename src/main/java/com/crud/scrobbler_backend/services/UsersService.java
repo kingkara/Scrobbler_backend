@@ -6,18 +6,16 @@ import com.crud.scrobbler_backend.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
-
 @Service
 public class UsersService {
     @Autowired
     private UsersRepository repository;
 
-    public User getUser (final long id) throws UserNotFoundException {
+    public User getUser(final long id) throws UserNotFoundException {
         return repository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
-    public User saveUser (final User user) {
+    public User saveUser(final User user) {
         return repository.save(user);
     }
 
