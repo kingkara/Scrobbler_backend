@@ -14,12 +14,13 @@ import java.util.List;
 @Table(name = "USERS")
 public class User {
 
-    public User(String username, String email, long spotifyId, List<Artist> artists, List<Track> tracks, List<Comment> comments) {
+    public User(String username, String email, long spotifyId, List<UsersArtist> usersArtists,
+                List<UsersTrack> usersTracks, List<Comment> comments) {
         this.username = username;
         this.email = email;
         this.spotifyId = spotifyId;
-        this.artists = artists;
-        this.tracks = tracks;
+        this.usersArtists = usersArtists;
+        this.usersTracks = usersTracks;
         this.comments = comments;
     }
 
@@ -40,13 +41,20 @@ public class User {
     @Column(name = "SPOTIFY_USER_ID")
     private long spotifyId;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "users")
-    private List<Artist> artists = new ArrayList<>();
+    @OneToMany(targetEntity = UsersArtist.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private List<UsersArtist> usersArtists = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "")
-    private List<Track> tracks = new ArrayList<>();
+    @OneToMany(
+            targetEntity = UsersTrack.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private List<UsersTrack> usersTracks = new ArrayList<>();
 
-    @OneToMany (
+    @OneToMany(
             targetEntity = Comment.class,
             mappedBy = "user",
             cascade = CascadeType.ALL,

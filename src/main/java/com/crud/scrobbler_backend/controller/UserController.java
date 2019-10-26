@@ -2,7 +2,7 @@ package com.crud.scrobbler_backend.controller;
 
 import com.crud.scrobbler_backend.domain.UserDto;
 import com.crud.scrobbler_backend.exceptions.UserNotFoundException;
-import com.crud.scrobbler_backend.mapper.UserMapper;
+import com.crud.scrobbler_backend.mapper.UsersMapper;
 import com.crud.scrobbler_backend.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     private UsersService service;
     @Autowired
-    private UserMapper mapper;
+    private UsersMapper mapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "/user/{userId}")
     public UserDto getUser(@PathVariable long userId) throws UserNotFoundException {

@@ -14,6 +14,6 @@ public class ArtistDto {
     private String name;
     private long count;
     private long spotifyId;
-    private List<User> users;
+    private List<UsersArtist> usersArtists;
     private List<Track> tracks;
 }

@@ -13,13 +13,13 @@ import java.util.List;
 @Table(name = "TRACKS")
 public class Track {
 
-    public Track(String title, boolean favouriteStatus, long count, Artist artist, long spotifyTrack, List<User> users, List<Comment> comments) {
+    public Track(String title, long count, Artist artist, long spotifyTrack,
+                 List<UsersTrack> usersTracks, List<Comment> comments) {
         this.title = title;
-        this.favouriteStatus = favouriteStatus;
         this.count = count;
         this.artist = artist;
         this.spotifyTrack = spotifyTrack;
-        this.users = users;
+        this.usersTracks = usersTracks;
         this.comments = comments;
     }
 
@@ -32,11 +32,7 @@ public class Track {
     @Column(name = "TITLE")
     private String title;
 
-    @Setter
-    @Column(name = "FAVOURITE")
-    private boolean favouriteStatus;
-
-    @Column
+    @Column (name = "COUNT_BY_ALL_USERS")
     private long count;
 
     @Setter
@@ -47,12 +43,11 @@ public class Track {
     @Column(name = "SPOTIFY_TRACK_ID")
     private long spotifyTrack;
 
-    @ManyToMany
-    @JoinTable(
-            name = "JOIN_USER_TRACK",
-            joinColumns = {@JoinColumn(name = "TRACK_ID", referencedColumnName = "TRACK_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")})
-    private List<User> users;
+    @OneToMany (targetEntity = UsersTrack.class,
+            mappedBy = "track",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private List<UsersTrack> usersTracks;
 
     @OneToMany (
             targetEntity = Comment.class,

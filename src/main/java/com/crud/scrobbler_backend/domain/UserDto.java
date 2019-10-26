@@ -14,7 +14,7 @@ public class UserDto {
     private String username;
     private String email;
     private long spotifyId;
-    private List<Artist> userArtistId;
-    private List<Track> userTrackId;
+    private List<UsersArtist> userArtistId;
+    private List<UsersTrack> userTrackId;
     private List<Comment> comments;
 }

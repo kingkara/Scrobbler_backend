@@ -5,7 +5,7 @@ import com.crud.scrobbler_backend.domain.SpotifyArtistDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SpotifyArtistMapper {
+public class SpotifyArtistsMapper {
     public SpotifyArtist mapToSpotifyArtist (final SpotifyArtistDto spotifyArtistDto) {
         return new SpotifyArtist(spotifyArtistDto.getId(), spotifyArtistDto.getName());
     }

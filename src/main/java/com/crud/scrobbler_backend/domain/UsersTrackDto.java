@@ -4,17 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.Instant;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TrackDto {
+public class UsersTrackDto {
     private long id;
-    private String title;
+    private Instant lastPLayedTime;
     private long count;
-    private Artist artist;
-    private long spotifyTrack;
-    private List<UsersTrack> usersTracks;
-    private List<Comment> comment;
+    private boolean favouriteStatus;
+    private User user;
+    private Track track;
 }

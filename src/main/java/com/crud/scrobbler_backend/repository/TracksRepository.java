@@ -13,9 +13,5 @@ public interface TracksRepository extends CrudRepository<Track, Long> {
     @Override
     List<Track> findAll();
 
-    List<Track> findAllByUsers (long userId);
-
-    List<Track> findAllByFavouriteStatusAndUsers (boolean status, long userId);
-
-    List<Track> findAllByUsersOrderByCount (long userId);
+    List<Track> findAllOrOrderByCount();
 }

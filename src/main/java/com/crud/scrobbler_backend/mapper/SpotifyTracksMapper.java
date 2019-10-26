@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SpotifyTrackMapper {
+public class SpotifyTracksMapper {
     public SpotifyTrack mapToSpotifyTrack (final SpotifyTrackDto spotifyTrackDto) {
         return new SpotifyTrack(spotifyTrackDto.getId(), spotifyTrackDto.getName(), spotifyTrackDto.getArtist());
     }

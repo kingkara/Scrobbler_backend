@@ -12,8 +12,5 @@ import java.util.List;
 public interface ArtistsRepository extends CrudRepository<Artist, Long> {
     @Override
     List<Artist> findAll();
-
-    List<Artist> findAllByUsers(long userId);
-
-    List<Artist> findAllByUsersOrderByCount(long userId);
+    List<Artist> findAllOrderByCount();
 }

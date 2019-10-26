@@ -14,11 +14,11 @@ import java.util.List;
 @Table(name = "ARTISTS")
 public class Artist {
 
-    public Artist(String name, long count, long spotifyId, List<User> users, List<Track> tracks) {
+    public Artist(String name, long count, long spotifyId, List<UsersArtist> usersArtist, List<Track> tracks) {
         this.name = name;
         this.count = count;
         this.spotifyId = spotifyId;
-        this.users = users;
+        this.usersArtist = usersArtist;
         this.tracks = tracks;
     }
 
@@ -31,20 +31,19 @@ public class Artist {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "COUNT")
+    @Column(name = "COUNT_BY_ALL_USES")
     private long count;
 
     @Column(name = "SPOTIFY_ID")
     private long spotifyId;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "JOIN_USER_ARTIST",
-            joinColumns = {@JoinColumn(name = "ARTIST_ID", referencedColumnName = "ARTIST_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")})
-    private List<User> users = new ArrayList<>();
+    @OneToMany(targetEntity = UsersArtist.class,
+            mappedBy = "artist",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private List<UsersArtist> usersArtist = new ArrayList<>();
 
-    @OneToMany (
+    @OneToMany(
             targetEntity = Track.class,
             mappedBy = "artist",
             cascade = CascadeType.ALL,
