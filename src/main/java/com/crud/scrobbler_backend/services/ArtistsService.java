@@ -17,6 +17,10 @@ public class ArtistsService {
         return repository.findById(id).orElseThrow(ArtistNotFoundException::new);
     }
 
+    public Artist getArtistByName(final String name) {
+        return repository.findArtistByName(name);
+    }
+
     public List<Artist> getArtists() {
         return repository.findAll();
     }
@@ -26,9 +30,9 @@ public class ArtistsService {
         repository.delete(artistToDelete);
     }
 
-    public List<Artist> getMostPlayedArtists() {
-        return repository.findAllOrderByCount();
-    }
+//    public List<Artist> getMostPlayedArtists() {
+//        return repository.findAllOrderByCount();
+//    }
 
     public void addArtist(final Artist artist) {
         repository.save(artist);

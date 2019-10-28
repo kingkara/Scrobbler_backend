@@ -31,9 +31,9 @@ public class ArtistsController {
         service.deleteArtist(artistsId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/artists")
-    public List<ArtistDto> getTopFive() {
-        return mapper.mapToArtistDtoList(service.getMostPlayedArtists());
-    }
+//    @RequestMapping(method = RequestMethod.GET, value = "/artists")
+//    public List<ArtistDto> getTopFive() {
+//        return mapper.mapToArtistDtoList(service.getMostPlayedArtists());
+//    }
 
 }

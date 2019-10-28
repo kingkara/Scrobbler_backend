@@ -2,6 +2,7 @@ package com.crud.scrobbler_backend.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,13 +18,15 @@ public class UsersArtist {
     @Column(name = "USERS_ARTIST_ID", unique = true)
     private long id;
 
-    @Column (name = "LASTLY_PLAYED_AT")
-    @NotNull
-    private Instant lastPLayedTime;
-
+    @Setter
     @Column (name = "COUNT")
     @NotNull
     private long count;
+
+    @Setter
+    @Column (name = "LASTLY_PLAYED_AT")
+    @NotNull
+    private Instant lastPlayedTime;
 
     @ManyToOne
     @JoinColumn (name = "USER_ID")
@@ -33,13 +36,12 @@ public class UsersArtist {
     @JoinColumn (name = "ARTIST_ID")
     private Artist artist;
 
-    public UsersArtist(@NotNull Instant lastPLayedTime, @NotNull long count, User user, Artist artist) {
-        this.lastPLayedTime = lastPLayedTime;
-        this.count = count;
+    public UsersArtist(User user, Artist artist) {
         this.user = user;
         this.artist = artist;
 
         user.getUsersArtists().add(this);
         artist.getUsersArtist().add(this);
+        this.count=1;
     }
 }

@@ -1,4 +1,4 @@
-package com.crud.scrobbler_backend.spotify_client;
+package com.crud.scrobbler_backend.spotify.client;
 
 import com.crud.scrobbler_backend.domain.SpotifyTrackDto;
 import org.springframework.beans.factory.annotation.Autowired;

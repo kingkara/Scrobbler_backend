@@ -17,6 +17,10 @@ public class TracksService {
         repository.save(track);
     }
 
+    public Track findByTitle(final String title) {
+        return repository.findTrackByTitle(title);
+    }
+
     public void deleteTrack(final long id) throws TrackNotFoundException {
         Track trackToDelete = repository.findById(id).orElseThrow(TrackNotFoundException::new);
         repository.delete(trackToDelete);
@@ -36,8 +40,9 @@ public class TracksService {
     public List<Track> getTracks() {
         return repository.findAll();
     }
-    public List<Track> getTopTracks () {
-        return repository.findAllOrOrderByCount();
-    }
+
+//    public List<Track> getTopTracks () {
+//        return repository.findAllOrOrderByCount();
+//    }
 
 }

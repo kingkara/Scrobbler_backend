@@ -18,10 +18,12 @@ public class UsersTrack {
     @Column(name = "USERS_TRACK_ID", unique = true)
     private long id;
 
+    @Setter
     @Column (name = "LASTLY_PLAYED_AT")
     @NotNull
-    private Instant lastPLayedTime;
+    private Instant lastPlayedTime;
 
+    @Setter
     @Column (name = "COUNT")
     @NotNull
     private long count;
@@ -38,13 +40,12 @@ public class UsersTrack {
     @JoinColumn (name = "TRACK_ID")
     private Track track;
 
-    public UsersTrack(@NotNull Instant lastPLayedTime, @NotNull long count, User user, Track track) {
-        this.lastPLayedTime = lastPLayedTime;
-        this.count = count;
+    public UsersTrack(User user, Track track) {
         this.user = user;
         this.track = track;
 
         user.getUsersTracks().add(this);
         track.getUsersTracks().add(this);
+        this.count=1;
     }
 }

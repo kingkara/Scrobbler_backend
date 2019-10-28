@@ -10,16 +10,16 @@ import java.util.stream.Collectors;
 @Component
 public class SpotifyTracksMapper {
     public SpotifyTrack mapToSpotifyTrack (final SpotifyTrackDto spotifyTrackDto) {
-        return new SpotifyTrack(spotifyTrackDto.getId(), spotifyTrackDto.getName(), spotifyTrackDto.getArtist());
+        return new SpotifyTrack(spotifyTrackDto.getId(), spotifyTrackDto.getName(), spotifyTrackDto.getArtist(), spotifyTrackDto.getPlayedAt());
     }
 
     public SpotifyTrackDto mapToSpotifyTrackDto (final SpotifyTrack spotifyTrack) {
-        return new SpotifyTrackDto(spotifyTrack.getId(), spotifyTrack.getName(), spotifyTrack.getArtist());
+        return new SpotifyTrackDto(spotifyTrack.getId(), spotifyTrack.getName(), spotifyTrack.getArtist(), spotifyTrack.getPlayedAt());
     }
 
     public List<SpotifyTrackDto> mapToSpotifyTrackDtoList (final List<SpotifyTrack> spotifyTrack) {
         return spotifyTrack.stream()
-                .map(s->new SpotifyTrackDto(s.getId(), s.getName(), s.getArtist()))
+                .map(s->new SpotifyTrackDto(s.getId(), s.getName(), s.getArtist(), s.getPlayedAt()))
                 .collect(Collectors.toList());
     }
 }

@@ -11,7 +11,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class UsersTrackDto {
     private long id;
-    private Instant lastPLayedTime;
+    private Instant lastPlayedTime;
     private long count;
     private boolean favouriteStatus;
     private User user;

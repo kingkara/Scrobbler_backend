@@ -6,6 +6,7 @@ import com.crud.scrobbler_backend.repository.UsersTracksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -14,10 +15,10 @@ public class UsersTracksService {
     private UsersTracksRepository repository;
 
     public List<UsersTrack> getAllUsersTracks (final long userId) throws UsersTrackNotFoundException {
-        return repository.findAllByUser(userId);
+        return repository.findAllByUser_Id(userId);
     }
     public List<UsersTrack> getTopTracks (final long userId) throws UsersTrackNotFoundException {
-        return repository.findAllByUserOrderByCount(userId);
+        return repository.findAllByUser_IdOrderByCount(userId);
     }
 
     public UsersTrack changeFavouriteStatus(final long id) throws UsersTrackNotFoundException {
@@ -30,6 +31,24 @@ public class UsersTracksService {
     }
 
     public List<UsersTrack> getFavourites(final long userId) throws UsersTrackNotFoundException {
-        return repository.findAllByUserAndFavouriteStatus(userId, true);
+        return repository.findAllByUser_IdAndFavouriteStatus(userId, true);
+    }
+
+    public UsersTrack getByUserAndTrackId(final long userId, final long trackId) {
+        return repository.findUsersTrackByUser_IdAndTrack_Id(userId, trackId);
+    }
+
+    public void addUsersTrack(final UsersTrack usersTrack) {
+        repository.save(usersTrack);
+    }
+
+    public void updateCountAndLastlyPlayed(final long id, final Instant thisTimePlayed) throws UsersTrackNotFoundException {
+        UsersTrack trackToUpdate = repository.findById(id).orElseThrow(UsersTrackNotFoundException ::new);
+        Instant lastlyPlayedAt = trackToUpdate.getLastPlayedTime();
+        if(thisTimePlayed!=lastlyPlayedAt) {
+            trackToUpdate.setCount(trackToUpdate.getCount()+1);
+            trackToUpdate.setLastPlayedTime(thisTimePlayed);
+            repository.save(trackToUpdate);
+        }
     }
 }

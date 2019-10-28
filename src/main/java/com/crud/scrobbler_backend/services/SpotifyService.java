@@ -1,7 +1,7 @@
 package com.crud.scrobbler_backend.services;
 
 import com.crud.scrobbler_backend.domain.SpotifyTrackDto;
-import com.crud.scrobbler_backend.spotify_client.SpotifyClient;
+import com.crud.scrobbler_backend.spotify.client.SpotifyClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

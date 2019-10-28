@@ -10,7 +10,7 @@ public class SpotifyArtistsMapper {
         return new SpotifyArtist(spotifyArtistDto.getId(), spotifyArtistDto.getName());
     }
 
-    public SpotifyArtistDto mapToSpotifyArtistDro (final SpotifyArtist spotifyArtist) {
+    public SpotifyArtistDto mapToSpotifyArtistDto(final SpotifyArtist spotifyArtist) {
         return new SpotifyArtistDto(spotifyArtist.getId(), spotifyArtist.getName());
     }
 }

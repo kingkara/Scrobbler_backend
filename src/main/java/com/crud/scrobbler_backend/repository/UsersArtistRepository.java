@@ -9,9 +9,11 @@ import java.util.List;
 
 @Repository
 public interface UsersArtistRepository extends CrudRepository<UsersArtist, Long> {
-    List<UsersArtist> getAllByUserOrderByCount(long userId) throws UsersArtistNotFoundException;
+    List<UsersArtist> getAllByUser_IdOrderByCount(long userId) throws UsersArtistNotFoundException;
 
-    List<UsersArtist> getAllByUser(long userId) throws UsersArtistNotFoundException;
+    List<UsersArtist> getAllByUser_Id(long userId) throws UsersArtistNotFoundException;
 
-    UsersArtist getByArtist(long artistId) throws UsersArtistNotFoundException;
+    UsersArtist getByArtist_ArtistId(long artistId) throws UsersArtistNotFoundException;
+
+    UsersArtist getUsersArtistByUserIdAndArtist_ArtistId (long userId, long artistId);
 }

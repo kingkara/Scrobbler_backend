@@ -14,14 +14,10 @@ import java.util.List;
 @Table(name = "USERS")
 public class User {
 
-    public User(String username, String email, long spotifyId, List<UsersArtist> usersArtists,
-                List<UsersTrack> usersTracks, List<Comment> comments) {
+    public User(String username, String email, long spotifyId) {
         this.username = username;
         this.email = email;
         this.spotifyId = spotifyId;
-        this.usersArtists = usersArtists;
-        this.usersTracks = usersTracks;
-        this.comments = comments;
     }
 
     @Id
@@ -60,5 +56,5 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 }

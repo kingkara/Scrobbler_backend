@@ -13,5 +13,7 @@ public interface TracksRepository extends CrudRepository<Track, Long> {
     @Override
     List<Track> findAll();
 
-    List<Track> findAllOrOrderByCount();
+//    List<Track> findAllOrOrderByCount();
+
+    Track findTrackByTitle(String title);
 }

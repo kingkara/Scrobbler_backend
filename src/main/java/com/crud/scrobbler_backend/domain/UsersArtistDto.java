@@ -11,8 +11,8 @@ import java.time.Instant;
 @NoArgsConstructor
 public class UsersArtistDto {
     private long id;
-    private Instant lastPLayedTime;
     private long count;
+    private Instant lastPlayedTime;
     private User user;
     private Artist artist;
 }

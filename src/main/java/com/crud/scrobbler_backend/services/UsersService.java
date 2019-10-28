@@ -15,8 +15,8 @@ public class UsersService {
         return repository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
-    public User saveUser(final User user) {
-        return repository.save(user);
+    public void saveUser(final User user) {
+        repository.save(user);
     }
 
     public User changeUser(final User user) throws UserNotFoundException {

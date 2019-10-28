@@ -6,6 +6,7 @@ import com.crud.scrobbler_backend.repository.UsersArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -13,15 +14,33 @@ public class UsersArtistsService {
     @Autowired
     private UsersArtistRepository repository;
 
-    public List<UsersArtist> getAllArtists(long userId) throws UsersArtistNotFoundException {
-        return repository.getAllByUser(userId);
+    public List<UsersArtist> getAllArtists(final long userId) throws UsersArtistNotFoundException {
+        return repository.getAllByUser_Id(userId);
     }
 
-    public List<UsersArtist> getTopArtists(long userId) throws UsersArtistNotFoundException {
-        return repository.getAllByUserOrderByCount(userId);
+    public List<UsersArtist> getTopArtists(final long userId) throws UsersArtistNotFoundException {
+        return repository.getAllByUser_IdOrderByCount(userId);
     }
 
-    public UsersArtist getArtist(long artistId) throws UsersArtistNotFoundException{
-        return repository.getByArtist(artistId);
+    public UsersArtist getArtist(final long artistId) throws UsersArtistNotFoundException {
+        return repository.getByArtist_ArtistId(artistId);
+    }
+
+    public UsersArtist getByUserAndArtistsId(final long userId, final long artistId) {
+        return repository.getUsersArtistByUserIdAndArtist_ArtistId(userId, artistId);
+    }
+
+    public void addUsersArtist(final UsersArtist usersArtist) {
+        repository.save(usersArtist);
+    }
+
+    public void updateCount(final long id, final Instant thisTimePlayedAt) throws UsersArtistNotFoundException {
+        UsersArtist artistToUpdate = repository.findById(id).orElseThrow(UsersArtistNotFoundException::new);
+        Instant lastlyPlayed = artistToUpdate.getLastPlayedTime();
+        if(thisTimePlayedAt!=lastlyPlayed) {
+            artistToUpdate.setCount(artistToUpdate.getCount() + 1);
+            artistToUpdate.setLastPlayedTime(thisTimePlayedAt);
+            repository.save(artistToUpdate);
+        }
     }
 }

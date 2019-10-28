@@ -28,9 +28,9 @@ public class TracksController {
     public void deleteTrack(@PathVariable long trackId) throws TrackNotFoundException {
         service.deleteTrack(trackId);
     }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/tracks")
-    public List<TrackDto> getTopFive() {
-        return mapper.mapToTrackDtoList(service.getTopTracks());
-    }
+//
+//    @RequestMapping(method = RequestMethod.GET, value = "/tracks")
+//    public List<TrackDto> getTopFive() {
+//        return mapper.mapToTrackDtoList(service.getTopTracks());
+//    }
 }

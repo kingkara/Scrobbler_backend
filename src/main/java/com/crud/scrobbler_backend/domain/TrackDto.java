@@ -12,9 +12,7 @@ import java.util.List;
 public class TrackDto {
     private long id;
     private String title;
-    private long count;
     private Artist artist;
-    private long spotifyTrack;
     private List<UsersTrack> usersTracks;
     private List<Comment> comment;
 }

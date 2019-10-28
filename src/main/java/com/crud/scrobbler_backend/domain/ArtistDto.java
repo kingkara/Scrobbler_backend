@@ -12,8 +12,6 @@ import java.util.List;
 public class ArtistDto {
     private long id;
     private String name;
-    private long count;
-    private long spotifyId;
     private List<UsersArtist> usersArtists;
     private List<Track> tracks;
 }

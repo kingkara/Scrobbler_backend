@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,4 +21,7 @@ public class SpotifyTrackDto {
 
     @JsonProperty("artist")
     private SpotifyArtist artist;
+
+    @JsonProperty("played_at")
+    private Instant playedAt;
 }

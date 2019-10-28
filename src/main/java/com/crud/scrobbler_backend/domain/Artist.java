@@ -14,12 +14,8 @@ import java.util.List;
 @Table(name = "ARTISTS")
 public class Artist {
 
-    public Artist(String name, long count, long spotifyId, List<UsersArtist> usersArtist, List<Track> tracks) {
+    public Artist(String name) {
         this.name = name;
-        this.count = count;
-        this.spotifyId = spotifyId;
-        this.usersArtist = usersArtist;
-        this.tracks = tracks;
     }
 
     @Id
@@ -30,12 +26,6 @@ public class Artist {
     @Setter
     @Column(name = "NAME")
     private String name;
-
-    @Column(name = "COUNT_BY_ALL_USES")
-    private long count;
-
-    @Column(name = "SPOTIFY_ID")
-    private long spotifyId;
 
     @OneToMany(targetEntity = UsersArtist.class,
             mappedBy = "artist",

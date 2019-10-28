@@ -11,8 +11,7 @@ import java.util.stream.Collectors;
 public class UsersMapper {
 
     public User mapToUser (final UserDto userDto) {
-        return new User(userDto.getUsername(), userDto.getEmail(), userDto.getSpotifyId(), userDto.getUserArtistId(), userDto.getUserTrackId(),
-                userDto.getComments());
+        return new User(userDto.getUsername(), userDto.getEmail(), userDto.getSpotifyId());
     }
 
     public UserDto mapToUserDto (final User user) {
