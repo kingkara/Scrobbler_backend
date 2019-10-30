@@ -1,5 +1,6 @@
 package com.crud.scrobbler_backend.domain;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +27,7 @@ public class UsersArtist {
     @Setter
     @Column (name = "LASTLY_PLAYED_AT")
     @NotNull
-    private Instant lastPlayedTime;
+    private String lastPlayedTime;
 
     @ManyToOne
     @JoinColumn (name = "USER_ID")

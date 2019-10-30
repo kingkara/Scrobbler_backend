@@ -1,7 +1,9 @@
 package com.crud.scrobbler_backend.services;
 
-import com.crud.scrobbler_backend.domain.SpotifyTrackDto;
+import com.crud.scrobbler_backend.domain.spotify.SpotifyCurrentlyPlayedDto;
+import com.crud.scrobbler_backend.domain.spotify.SpotifyFullTrackDto;
 import com.crud.scrobbler_backend.spotify.client.SpotifyClient;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,12 @@ public class SpotifyService {
     @Autowired
     private SpotifyClient client;
 
-    public List<SpotifyTrackDto> getPlayback() {
+    public List<SpotifyFullTrackDto> getPlayback() throws JsonProcessingException {
         return client.getRecentlyPlayed();
     }
 
-    public SpotifyTrackDto getCurrentPlaying() {
+    public SpotifyCurrentlyPlayedDto getCurrentPlaying() throws JsonProcessingException {
         return client.getCurrentPlayedTrack();
     }
+
 }

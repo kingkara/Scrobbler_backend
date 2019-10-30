@@ -11,16 +11,16 @@ import java.util.stream.Collectors;
 public class ArtistMapper {
 
     public Artist mapToArtist(final ArtistDto artistDto) {
-        return new Artist(artistDto.getName());
+        return new Artist(artistDto.getName(), artistDto.getSpotifyArtistId());
     }
 
     public ArtistDto mapToArtistDto(final Artist artist) {
-        return new ArtistDto(artist.getArtistId(), artist.getName(), artist.getUsersArtist(), artist.getTracks());
+        return new ArtistDto(artist.getArtistId(), artist.getName(), artist.getSpotifyArtistId(), artist.getUsersArtist(), artist.getTracks());
     }
 
     public List<ArtistDto> mapToArtistDtoList(final List<Artist> artists) {
         return artists.stream()
-                .map(a -> new ArtistDto(a.getArtistId(), a.getName(),a.getUsersArtist(), a.getTracks()))
+                .map(a -> new ArtistDto(a.getArtistId(), a.getName(), a.getSpotifyArtistId(), a.getUsersArtist(), a.getTracks()))
                 .collect(Collectors.toList());
     }
 }

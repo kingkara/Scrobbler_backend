@@ -21,7 +21,7 @@ public class UsersTrack {
     @Setter
     @Column (name = "LASTLY_PLAYED_AT")
     @NotNull
-    private Instant lastPlayedTime;
+    private String lastPlayedTime;
 
     @Setter
     @Column (name = "COUNT")

@@ -12,7 +12,7 @@ import java.time.Instant;
 public class UsersArtistDto {
     private long id;
     private long count;
-    private Instant lastPlayedTime;
+    private String lastPlayedTime;
     private User user;
     private Artist artist;
 }

@@ -1,7 +1,7 @@
 package com.crud.scrobbler_backend.services;
 
 import com.crud.scrobbler_backend.domain.LyricsDto;
-import com.crud.scrobbler_backend.lyrics_client.LyricsClient;
+import com.crud.scrobbler_backend.lyrics.client.LyricsClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

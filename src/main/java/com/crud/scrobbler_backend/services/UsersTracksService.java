@@ -42,10 +42,10 @@ public class UsersTracksService {
         repository.save(usersTrack);
     }
 
-    public void updateCountAndLastlyPlayed(final long id, final Instant thisTimePlayed) throws UsersTrackNotFoundException {
+    public void updateCountAndLastlyPlayed(final long id, final String thisTimePlayed) throws UsersTrackNotFoundException {
         UsersTrack trackToUpdate = repository.findById(id).orElseThrow(UsersTrackNotFoundException ::new);
-        Instant lastlyPlayedAt = trackToUpdate.getLastPlayedTime();
-        if(thisTimePlayed!=lastlyPlayedAt) {
+        String lastlyPlayedAt = trackToUpdate.getLastPlayedTime();
+        if(!thisTimePlayed.equals(lastlyPlayedAt)) {
             trackToUpdate.setCount(trackToUpdate.getCount()+1);
             trackToUpdate.setLastPlayedTime(thisTimePlayed);
             repository.save(trackToUpdate);

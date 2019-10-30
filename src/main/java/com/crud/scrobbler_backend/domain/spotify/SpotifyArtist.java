@@ -1,4 +1,4 @@
-package com.crud.scrobbler_backend.domain;
+package com.crud.scrobbler_backend.domain.spotify;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

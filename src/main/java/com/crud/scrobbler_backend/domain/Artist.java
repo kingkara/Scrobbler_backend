@@ -14,8 +14,9 @@ import java.util.List;
 @Table(name = "ARTISTS")
 public class Artist {
 
-    public Artist(String name) {
+    public Artist(String name, String spotifyArtistId) {
         this.name = name;
+        this.spotifyArtistId = spotifyArtistId;
     }
 
     @Id
@@ -26,6 +27,10 @@ public class Artist {
     @Setter
     @Column(name = "NAME")
     private String name;
+
+    @Setter
+    @Column(name = "SPOTIFY_ARTIST_ID")
+    private String spotifyArtistId;
 
     @OneToMany(targetEntity = UsersArtist.class,
             mappedBy = "artist",

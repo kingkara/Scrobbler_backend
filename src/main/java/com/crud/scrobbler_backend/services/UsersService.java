@@ -15,6 +15,10 @@ public class UsersService {
         return repository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
+    public User getUserBySpotifyId(final String spotifyId) {
+        return repository.findUserBySpotifyId(spotifyId);
+    }
+
     public void saveUser(final User user) {
         repository.save(user);
     }

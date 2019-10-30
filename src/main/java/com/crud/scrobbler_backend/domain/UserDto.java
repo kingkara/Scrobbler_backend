@@ -13,7 +13,7 @@ public class UserDto {
     private long id;
     private String username;
     private String email;
-    private long spotifyId;
+    private String spotifyId;
     private List<UsersArtist> userArtistId;
     private List<UsersTrack> userTrackId;
     private List<Comment> comments;

@@ -1,14 +1,29 @@
 package com.crud.scrobbler_backend.scheduler;
 
-import com.crud.scrobbler_backend.repository.SpotifyRepository;
+import com.crud.scrobbler_backend.exceptions.UserNotFoundException;
+import com.crud.scrobbler_backend.services.SpotifyService;
 import com.crud.scrobbler_backend.spotify.client.SpotifyClient;
+import com.crud.scrobbler_backend.spotify.saveToDatabase.Saver;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+
 @Component
+@EnableScheduling
 public class GetTracksFromSpotifyScheduler {
     @Autowired
-    private SpotifyRepository repository;
+    private Saver saver;
     @Autowired
-    private SpotifyClient client;
+    private SpotifyService service;
+
+//    @Scheduled (cron = "0 * * * * ?")
+    @Scheduled(fixedRate = 1000)
+    public void getTracksFromSpotify() throws JsonProcessingException {
+        saver.saveTracksAndArtists();
+        saver.saveUsersTracksAndArtists();
+        System.out.println(service.getCurrentPlaying().getTitle());
+    }
 }

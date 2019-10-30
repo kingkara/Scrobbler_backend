@@ -12,6 +12,7 @@ import java.util.List;
 public class ArtistDto {
     private long id;
     private String name;
+    private String spotifyArtistId;
     private List<UsersArtist> usersArtists;
     private List<Track> tracks;
 }

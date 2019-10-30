@@ -1,8 +1,10 @@
 package com.crud.scrobbler_backend.controller;
 
-import com.crud.scrobbler_backend.domain.SpotifyTrackDto;
+import com.crud.scrobbler_backend.domain.spotify.SpotifyCurrentlyPlayedDto;
+import com.crud.scrobbler_backend.domain.spotify.SpotifyFullTrackDto;
 import com.crud.scrobbler_backend.exceptions.SpotifyTokenNotProvidedFoundException;
 import com.crud.scrobbler_backend.services.SpotifyService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +18,12 @@ public class SpotifyController {
     private SpotifyService service;
 
     @RequestMapping(method = RequestMethod.GET, value = "/playback")
-    public List<SpotifyTrackDto> getPlayback() throws SpotifyTokenNotProvidedFoundException {
+    public List<SpotifyFullTrackDto> getPlayback() throws  JsonProcessingException {
         return service.getPlayback();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/current")
-    public SpotifyTrackDto getCurrentPlaying() throws SpotifyTokenNotProvidedFoundException {
+    public SpotifyCurrentlyPlayedDto getCurrentPlaying() throws  JsonProcessingException {
         return service.getCurrentPlaying();
     }
 

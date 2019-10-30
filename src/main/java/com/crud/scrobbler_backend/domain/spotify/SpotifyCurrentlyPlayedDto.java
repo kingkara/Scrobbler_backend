@@ -1,4 +1,4 @@
-package com.crud.scrobbler_backend.domain;
+package com.crud.scrobbler_backend.domain.spotify;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,22 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SpotifyTrackDto {
+public class SpotifyCurrentlyPlayedDto {
     @JsonProperty("id")
     private String id;
-
     @JsonProperty("name")
-    private String name;
-
-    @JsonProperty("artist")
-    private SpotifyArtist artist;
-
-    @JsonProperty("played_at")
-    private Instant playedAt;
+    private String title;
+    @JsonProperty("astists")
+    private List<SpotifyArtistDto> artistDtos;
 }

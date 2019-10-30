@@ -34,10 +34,10 @@ public class UsersArtistsService {
         repository.save(usersArtist);
     }
 
-    public void updateCount(final long id, final Instant thisTimePlayedAt) throws UsersArtistNotFoundException {
+    public void updateCount(final long id, final String thisTimePlayedAt) throws UsersArtistNotFoundException {
         UsersArtist artistToUpdate = repository.findById(id).orElseThrow(UsersArtistNotFoundException::new);
-        Instant lastlyPlayed = artistToUpdate.getLastPlayedTime();
-        if(thisTimePlayedAt!=lastlyPlayed) {
+        String lastlyPlayed = artistToUpdate.getLastPlayedTime();
+        if(!thisTimePlayedAt.equals(lastlyPlayed)) {
             artistToUpdate.setCount(artistToUpdate.getCount() + 1);
             artistToUpdate.setLastPlayedTime(thisTimePlayedAt);
             repository.save(artistToUpdate);

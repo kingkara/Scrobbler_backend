@@ -1,4 +1,4 @@
-package com.crud.scrobbler_backend.lyrics_client;
+package com.crud.scrobbler_backend.lyrics.client;
 
 import com.crud.scrobbler_backend.domain.LyricsDto;
 import org.springframework.beans.factory.annotation.Autowired;

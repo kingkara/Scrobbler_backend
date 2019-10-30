@@ -1,53 +1,62 @@
 package com.crud.scrobbler_backend.spotify.client;
 
-import com.crud.scrobbler_backend.domain.SpotifyTrackDto;
+import com.crud.scrobbler_backend.domain.spotify.SpotifyCurrentlyPlayedDto;
+import com.crud.scrobbler_backend.domain.spotify.SpotifyFullTrackDto;
+import com.crud.scrobbler_backend.domain.spotify.SpotifyItemDto;
+import com.crud.scrobbler_backend.domain.spotify.SpotifyItemsDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+
+import static com.crud.scrobbler_backend.spotify.client.SpotifyAuthorize.getTokenFromSpotifyServer;
 
 @Component
 public class SpotifyClient {
     @Value("${spotify.api.endpoint.prod}")
     private String spotifyApiEndpoint;
-
-    @Value("$spotify.app.token")
-    private String spotifyToken;
-
-    @Value("$spotify.app.user-id")
-    private String spotifyUserId;
-
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<SpotifyTrackDto> getRecentlyPlayed() {
+    private String spotifyToken = getTokenFromSpotifyServer();
 
-        URI uri = UriComponentsBuilder.fromHttpUrl(spotifyApiEndpoint + "/me/player/recently_played")
-                .queryParam("access_token", spotifyToken)
-                .build().encode().toUri();
+    public List<SpotifyFullTrackDto> getRecentlyPlayed() throws JsonProcessingException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept", "application/json");
+        headers.add("Content-Type", "application/json");
+        headers.add("Authorization", "Bearer " + spotifyToken);
 
-        SpotifyTrackDto[] tracksResponse = restTemplate.getForObject(uri, SpotifyTrackDto[].class);
-        if(tracksResponse!=null) {
-            return Arrays.asList(tracksResponse);
-        }
-        return new ArrayList<>();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                spotifyApiEndpoint + "recently-played?type=track&limit=10", HttpMethod.GET, entity, String.class);
+
+        String tracksResponse = response.getBody();
+        ObjectMapper mapper = new ObjectMapper();
+        SpotifyItemsDto objects = mapper.readValue(Objects.requireNonNull(tracksResponse), SpotifyItemsDto.class);
+        return objects.getSpotifyTrackDtos();
     }
 
-    public SpotifyTrackDto getCurrentPlayedTrack() {
-        URI uri = UriComponentsBuilder.fromHttpUrl(spotifyApiEndpoint + "me/player/currently-playing")
-                .queryParam("access_token", spotifyToken)
-                .build().encode().toUri();
+    public SpotifyCurrentlyPlayedDto getCurrentPlayedTrack() throws JsonProcessingException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + spotifyToken);
 
-        SpotifyTrackDto trackResponse = restTemplate.getForObject(uri, SpotifyTrackDto.class);
-        if(trackResponse!=null) {
-            return trackResponse;
-        }
-        return new SpotifyTrackDto();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(
+                spotifyApiEndpoint + "currently-playing", HttpMethod.GET, entity, String.class);
+        String tracksResponse = response.getBody();
+        ObjectMapper mapper = new ObjectMapper();
+        SpotifyItemDto object = mapper.readValue(Objects.requireNonNull(tracksResponse), SpotifyItemDto.class);
+        return object.getSpotifyCurrentlyPlayed();
     }
 }
