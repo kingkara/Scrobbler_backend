@@ -1,15 +1,13 @@
 package com.crud.scrobbler_backend.mapper;
 
-import com.crud.scrobbler_backend.domain.Artist;
-import com.crud.scrobbler_backend.domain.ArtistDto;
+import com.crud.scrobbler_backend.domain.*;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,13 +21,14 @@ class ArtistMapperTestSuite {
     @Test
     void shouldMapToArtist() {
         //Given
-        ArtistDto artistDto = new ArtistDto(1, "Korn", new ArrayList<>(), new ArrayList<>());
+        ArtistDto artistDto = new ArtistDto(1, "Test name", "Test id", new ArrayList<>(), new ArrayList<>());
 
         //When
         Artist artist = artistMapper.mapToArtist(artistDto);
 
         //Then
-        assertEquals("Korn", artist.getName());
+        assertEquals("Test name", artist.getName());
+        assertEquals("Test id", artist.getSpotifyArtistId());
         assertEquals(0, artist.getTracks().size());
         assertEquals(0, artist.getUsersArtist().size());
     }
@@ -37,13 +36,14 @@ class ArtistMapperTestSuite {
     @Test
     void shouldMapToArtistDto() {
         //Given
-        Artist artist = new Artist("Korn");
+        Artist artist = new Artist("Test name", "Test id");
 
         //When
         ArtistDto artistDto = artistMapper.mapToArtistDto(artist);
 
         //Then
-        assertEquals("Korn", artistDto.getName());
+        assertEquals("Test name", artistDto.getName());
+        assertEquals("Test id", artistDto.getSpotifyArtistId());
         assertEquals(0, artistDto.getTracks().size());
         assertEquals(0, artistDto.getUsersArtists().size());
     }
@@ -52,8 +52,8 @@ class ArtistMapperTestSuite {
     void shouldMapToArtistDtoList() {
         //Given
         List<Artist> list = new ArrayList<>();
-        Artist artist = new Artist("Korn");
-        Artist artist1 = new Artist("Fleedwood Mac");
+        Artist artist = new Artist("Test name", "Test id");
+        Artist artist1 = new Artist("Test name 2", "Test id 2");
         list.add(artist);
         list.add(artist1);
 
@@ -62,7 +62,9 @@ class ArtistMapperTestSuite {
 
         //Then
         assertEquals(2, artistDtoList.size());
-        assertEquals("Korn", artistDtoList.get(0).getName());
-        assertEquals("Fleedwood Mac", artistDtoList.get(1).getName());
+        assertEquals("Test name", artistDtoList.get(0).getName());
+        assertEquals("Test id", artistDtoList.get(0).getSpotifyArtistId());
+        assertEquals("Test name 2", artistDtoList.get(1).getName());
+        assertEquals("Test id 2", artistDtoList.get(1).getSpotifyArtistId());
     }
 }

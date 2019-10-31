@@ -33,5 +33,8 @@ public class UsersTrackController {
         return mapper.mapToUsersTrackDto(service.changeFavouriteStatus(usersTrackId));
     }
 
-
+    @RequestMapping(method = RequestMethod.GET, value = "/usersTrack/top/{userId}")
+    public List<UsersTrackDto> getTopUsersTracks(@PathVariable long userId) throws UsersTrackNotFoundException {
+        return mapper.mapToUsersTrackDtoList(service.getTopTracks(userId));
+    }
 }

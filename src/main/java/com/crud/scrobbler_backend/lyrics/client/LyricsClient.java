@@ -21,8 +21,8 @@ public class LyricsClient {
     private RestTemplate restTemplate;
 
     public LyricsDto getTrackLyrics(String artistName, String title) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(lyricsApiEndpoint + "music/lyric/" + artistName + "/" + title)
-                .queryParam("access_token", lyricsApiEndpoint)
+        URI uri = UriComponentsBuilder.fromHttpUrl(lyricsApiEndpoint + artistName + "/" + title)
+                .queryParam("apikey", lyricsApiEndpoint)
                 .build().encode().toUri();
 
         LyricsDto lyricsResponse = restTemplate.getForObject(uri, LyricsDto.class);

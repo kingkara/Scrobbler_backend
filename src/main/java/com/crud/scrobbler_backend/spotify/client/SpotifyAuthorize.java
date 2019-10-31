@@ -1,15 +1,11 @@
 package com.crud.scrobbler_backend.spotify.client;
 
 import com.wrapper.spotify.SpotifyApi;
-import com.wrapper.spotify.SpotifyHttpManager;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.AuthorizationCodeCredentials;
 import com.wrapper.spotify.requests.authorization.authorization_code.AuthorizationCodeRefreshRequest;
-import com.wrapper.spotify.requests.authorization.authorization_code.AuthorizationCodeRequest;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
-import java.net.URI;
 
 public class SpotifyAuthorize {
     private static String clientId = "9ef734f0814d492689a03de00a67523e";
@@ -22,6 +18,7 @@ public class SpotifyAuthorize {
             .setClientSecret(clientSecret)
             .setRefreshToken(refreshToken)
             .build();
+
     private static final AuthorizationCodeRefreshRequest authorizationCodeRefreshRequest = spotifyApi.authorizationCodeRefresh()
             .build();
 

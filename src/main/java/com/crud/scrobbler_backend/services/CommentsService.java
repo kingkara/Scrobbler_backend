@@ -14,17 +14,20 @@ public class CommentsService {
     @Autowired
     private CommentsRepository repository;
 
+    public Comment getComment(final long id) throws CommentNotFoundException {
+        return repository.findById(id).orElseThrow(CommentNotFoundException::new);
+    }
     public List<Comment> getComments(final long trackId) throws TrackNotFoundException {
         return repository.findAllByTrack_Id(trackId);
     }
 
-    public void addComment(final Comment comment) {
-        repository.save(comment);
+    public Comment addComment(final Comment comment) {
+        return repository.save(comment);
     }
 
-    public Comment editComment(final Comment comment) throws CommentNotFoundException {
-        Comment updatedComment = repository.findById(comment.getId()).orElseThrow(CommentNotFoundException::new);
-        updatedComment.setText(comment.getText());
+    public Comment editComment(final long comentId, final String updateCommentText) throws CommentNotFoundException {
+        Comment updatedComment = repository.findById(comentId).orElseThrow(CommentNotFoundException::new);
+        updatedComment.setText(updateCommentText);
         return repository.save(updatedComment);
     }
 

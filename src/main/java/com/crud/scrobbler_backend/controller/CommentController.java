@@ -32,7 +32,7 @@ public class CommentController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/comments")
     public CommentDto updateComment(@RequestBody CommentDto commentDto) throws CommentNotFoundException {
-        return mapper.mapToCommentDto(service.editComment(mapper.mapToComment(commentDto)));
+        return mapper.mapToCommentDto(service.editComment(commentDto.getId(),commentDto.getText()));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/comments/{commentId}")

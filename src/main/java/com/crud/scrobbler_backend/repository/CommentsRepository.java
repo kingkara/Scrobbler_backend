@@ -13,7 +13,7 @@ import java.util.List;
 public interface CommentsRepository extends CrudRepository<Comment, Long> {
     @Override
     List<Comment> findAll();
-    
-    List<Comment> findAllByTrack_Id (long trackId) throws TrackNotFoundException;
+
+    List<Comment> findAllByTrack_Id(long trackId) throws TrackNotFoundException;
 
 }

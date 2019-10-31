@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class CommentsMapperTestSuite {
-
     @Autowired
     private CommentsMapper mapper;
 

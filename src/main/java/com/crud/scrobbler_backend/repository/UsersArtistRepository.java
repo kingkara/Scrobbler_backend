@@ -15,5 +15,5 @@ public interface UsersArtistRepository extends CrudRepository<UsersArtist, Long>
 
     UsersArtist getByArtist_ArtistId(long artistId) throws UsersArtistNotFoundException;
 
-    UsersArtist getUsersArtistByUserIdAndArtist_ArtistId (long userId, long artistId);
+    UsersArtist getUsersArtistByUserIdAndArtist_ArtistId(long userId, long artistId);
 }

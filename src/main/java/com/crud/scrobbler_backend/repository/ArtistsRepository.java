@@ -13,7 +13,5 @@ public interface ArtistsRepository extends CrudRepository<Artist, Long> {
     @Override
     List<Artist> findAll();
 
-//    List<Artist> findAllOrderByCount();
-
     Artist findArtistByName(String name);
 }

@@ -18,11 +18,6 @@ public class UsersArtistsController {
     @Autowired
     private UsersArtistsMapper mapper;
 
-//    @RequestMapping(method = RequestMethod.GET, value = "/usersArtists/{artistId}")
-//    public UsersArtistDto getArtist(@PathVariable long artistId) throws UsersArtistNotFoundException {
-//        return mapper.mapToUsersArtistDto(service.getArtist(artistId));
-//    }
-
     @RequestMapping(method = RequestMethod.GET, value = "/usersArtists/{userId}")
     public List<UsersArtistDto> getUsersArtists(@PathVariable long userId) throws UsersArtistNotFoundException {
         return mapper.mapToUsersArtistDtoList(service.getAllArtists(userId));

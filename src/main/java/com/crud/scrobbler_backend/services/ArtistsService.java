@@ -30,17 +30,8 @@ public class ArtistsService {
         repository.delete(artistToDelete);
     }
 
-//    public List<Artist> getMostPlayedArtists() {
-//        return repository.findAllOrderByCount();
-//    }
-
-    public void addArtist(final Artist artist) {
-        repository.save(artist);
+    public Artist addArtist(final Artist artist) {
+        return repository.save(artist);
     }
 
-    public Artist editArtist(final Artist artist) throws ArtistNotFoundException{
-        Artist artistToUpdate = repository.findById(artist.getArtistId()).orElseThrow(ArtistNotFoundException::new);
-        artistToUpdate.setName(artist.getName());
-        return repository.save(artistToUpdate);
-    }
 }

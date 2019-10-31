@@ -6,7 +6,6 @@ import com.crud.scrobbler_backend.repository.UsersArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -22,10 +21,6 @@ public class UsersArtistsService {
         return repository.getAllByUser_IdOrderByCount(userId);
     }
 
-    public UsersArtist getArtist(final long artistId) throws UsersArtistNotFoundException {
-        return repository.getByArtist_ArtistId(artistId);
-    }
-
     public UsersArtist getByUserAndArtistsId(final long userId, final long artistId) {
         return repository.getUsersArtistByUserIdAndArtist_ArtistId(userId, artistId);
     }
@@ -37,7 +32,7 @@ public class UsersArtistsService {
     public void updateCount(final long id, final String thisTimePlayedAt) throws UsersArtistNotFoundException {
         UsersArtist artistToUpdate = repository.findById(id).orElseThrow(UsersArtistNotFoundException::new);
         String lastlyPlayed = artistToUpdate.getLastPlayedTime();
-        if(!thisTimePlayedAt.equals(lastlyPlayed)) {
+        if (!thisTimePlayedAt.equals(lastlyPlayed)) {
             artistToUpdate.setCount(artistToUpdate.getCount() + 1);
             artistToUpdate.setLastPlayedTime(thisTimePlayedAt);
             repository.save(artistToUpdate);

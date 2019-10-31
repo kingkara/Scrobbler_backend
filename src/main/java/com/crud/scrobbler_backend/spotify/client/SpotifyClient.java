@@ -38,7 +38,7 @@ public class SpotifyClient {
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                spotifyApiEndpoint + "recently-played?type=track&limit=10", HttpMethod.GET, entity, String.class);
+                spotifyApiEndpoint + "recently-played?type=track&limit=50", HttpMethod.GET, entity, String.class);
 
         String tracksResponse = response.getBody();
         ObjectMapper mapper = new ObjectMapper();

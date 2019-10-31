@@ -7,7 +7,6 @@ import com.crud.scrobbler_backend.services.TracksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @CrossOrigin("*")
 @RestController
@@ -28,9 +27,4 @@ public class TracksController {
     public void deleteTrack(@PathVariable long trackId) throws TrackNotFoundException {
         service.deleteTrack(trackId);
     }
-//
-//    @RequestMapping(method = RequestMethod.GET, value = "/tracks")
-//    public List<TrackDto> getTopFive() {
-//        return mapper.mapToTrackDtoList(service.getTopTracks());
-//    }
 }

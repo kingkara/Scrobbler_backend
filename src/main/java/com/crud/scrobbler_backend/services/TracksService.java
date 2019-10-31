@@ -26,13 +26,6 @@ public class TracksService {
         repository.delete(trackToDelete);
     }
 
-    public Track updateTrack(final Track track) throws TrackNotFoundException {
-        Track trackToUpdate = repository.findById(track.getId()).orElseThrow(TrackNotFoundException::new);
-        trackToUpdate.setArtist(track.getArtist());
-        trackToUpdate.setTitle(track.getTitle());
-        return repository.save(trackToUpdate);
-    }
-
     public Track getTrack(final long id) throws TrackNotFoundException {
         return repository.findById(id).orElseThrow(TrackNotFoundException::new);
     }
@@ -40,9 +33,4 @@ public class TracksService {
     public List<Track> getTracks() {
         return repository.findAll();
     }
-
-//    public List<Track> getTopTracks () {
-//        return repository.findAllOrOrderByCount();
-//    }
-
 }

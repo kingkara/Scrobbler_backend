@@ -28,10 +28,11 @@ public class ArtistsAndTracksValidator {
         List<Artist> artistToCheck = newArtists.stream()
                 .map(artist -> artistsService.getArtistByName(artist.getName()))
                 .collect(Collectors.toList());
+
         if (artistToCheck.size() != 0) {
             return artistToCheck;
         }
-        for(Artist artist: newArtists) {
+        for (Artist artist : newArtists) {
             artistsService.addArtist(artist);
         }
         return newArtists;

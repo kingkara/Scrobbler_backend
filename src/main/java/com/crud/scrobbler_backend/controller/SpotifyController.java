@@ -2,7 +2,6 @@ package com.crud.scrobbler_backend.controller;
 
 import com.crud.scrobbler_backend.domain.spotify.SpotifyCurrentlyPlayedDto;
 import com.crud.scrobbler_backend.domain.spotify.SpotifyFullTrackDto;
-import com.crud.scrobbler_backend.exceptions.SpotifyTokenNotProvidedFoundException;
 import com.crud.scrobbler_backend.services.SpotifyService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
