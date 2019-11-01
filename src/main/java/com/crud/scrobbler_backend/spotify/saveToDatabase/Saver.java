@@ -4,9 +4,7 @@ import com.crud.scrobbler_backend.domain.*;
 import com.crud.scrobbler_backend.domain.spotify.SpotifyFullTrack;
 import com.crud.scrobbler_backend.exceptions.*;
 import com.crud.scrobbler_backend.mapper.SpotifyFullTracksMapper;
-import com.crud.scrobbler_backend.services.ArtistsService;
 import com.crud.scrobbler_backend.services.SpotifyService;
-import com.crud.scrobbler_backend.services.TracksService;
 import com.crud.scrobbler_backend.services.UsersService;
 import com.crud.scrobbler_backend.spotify.sorter.StringSorter;
 import com.crud.scrobbler_backend.spotify.validator.ArtistsAndTracksValidator;
@@ -31,32 +29,19 @@ public class Saver {
     @Autowired
     private UsersService usersService;
     @Autowired
-    private TracksService tracksService;
-    @Autowired
-    private ArtistsService artistsService;
-    @Autowired
     private UsersArtistsAndTracksValidator usersArtistsAndTracksValidator;
-
-
-    public void saveTracksAndArtists() throws JsonProcessingException {
-        List<SpotifyFullTrack> lastlyPlayed = spotifyFullTracksMapper.mapToSpotifyTrackList(spotifyService.getPlayback());
-        lastlyPlayed.forEach(track -> artistsAndTracksValidator.validateTrack(track));
-        System.out.println(artistsService.getArtists().size());
-    }
 
     public void saveUsersTracksAndArtists() throws JsonProcessingException {
         List<SpotifyFullTrack> lastlyPlayed = spotifyFullTracksMapper.mapToSpotifyTrackList(spotifyService.getPlayback());
-        User user = usersService.getUserBySpotifyId(clientId);
-        System.out.println(user.getUsername());
         lastlyPlayed.sort(new StringSorter());
-        System.out.println(lastlyPlayed.get(0).getSpotifyTrackDto().getTitle());
         lastlyPlayed.forEach(track -> {
             try {
-                usersArtistsAndTracksValidator.validateUsersArtist(user.getId(),
-                        artistsService.getArtistByName(track.getSpotifyTrackDto().getSpotifyArtistDto().get(0).getName()).getArtistId(), track.getPlayedAt());
-                usersArtistsAndTracksValidator.validateUsersTrack(user.getId(), tracksService.findByTitle(track.getSpotifyTrackDto().getTitle()).getId(), track.getPlayedAt());
-            } catch (UserNotFoundException | ArtistNotFoundException | UsersArtistNotFoundException | UsersTrackNotFoundException
-                    | TrackNotFoundException e) {
+                Track validatedTrack = artistsAndTracksValidator.validateTrack(track);
+                System.out.println("Validated:" + validatedTrack.getArtist().getName());
+                User user = usersService.getUserBySpotifyId(clientId);
+                usersArtistsAndTracksValidator.validateUsersArtist(user, validatedTrack.getArtist(), track.getPlayedAt());
+                usersArtistsAndTracksValidator.validateUsersTrack(user, validatedTrack, track.getPlayedAt());
+            } catch (UsersArtistNotFoundException e) {
                 e.printStackTrace();
             }
         });

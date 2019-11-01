@@ -1,14 +1,14 @@
 package com.crud.scrobbler_backend.spotify.validator;
 
 import com.crud.scrobbler_backend.domain.*;
-import com.crud.scrobbler_backend.domain.spotify.SpotifyArtist;
+import com.crud.scrobbler_backend.domain.spotify.SpotifyArtistDto;
 import com.crud.scrobbler_backend.domain.spotify.SpotifyFullTrack;
-import com.crud.scrobbler_backend.mapper.SpotifyArtistsMapper;
 import com.crud.scrobbler_backend.services.ArtistsService;
 import com.crud.scrobbler_backend.services.TracksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,32 +18,41 @@ public class ArtistsAndTracksValidator {
     private ArtistsService artistsService;
     @Autowired
     private TracksService tracksService;
-    @Autowired
-    private SpotifyArtistsMapper mapper;
 
-    private List<Artist> validateArtist(List<SpotifyArtist> spotifyArtist) {
-        List<Artist> newArtists = spotifyArtist.stream()
+    private List<Artist> validateArtist(List<SpotifyArtistDto> spotifyArtistDto) {
+        List<Artist> newArtists = spotifyArtistDto.stream()
                 .map(artist -> new Artist(artist.getName(), artist.getId()))
                 .collect(Collectors.toList());
-        List<Artist> artistToCheck = newArtists.stream()
-                .map(artist -> artistsService.getArtistByName(artist.getName()))
-                .collect(Collectors.toList());
 
-        if (artistToCheck.size() != 0) {
-            return artistToCheck;
+        List<Artist> artistToCheck = new ArrayList<>();
+        for (Artist artistToValidate : newArtists) {
+            System.out.println(artistToValidate.getName());
+            if(artistToValidate.equals(artistsService.getArtistByName(artistToValidate.getName()))){
+                artistToCheck.add(artistToValidate);
+            }
         }
+
+            if (artistToCheck.size() != 0) {
+                for (Artist artist : newArtists) {
+                    for (Artist artistToDelete : artistToCheck) {
+                        if (artist.equals(artistToDelete)) {
+                            newArtists.remove(artist);
+                        }
+                    }
+                }
+            }
         for (Artist artist : newArtists) {
             artistsService.addArtist(artist);
         }
         return newArtists;
     }
 
-    public void validateTrack(SpotifyFullTrack spotifyFullTrack) {
-        Track newTrack = new Track(spotifyFullTrack.getSpotifyTrackDto().getTitle(), validateArtist((mapper.mapToSpotifyArtistList(spotifyFullTrack.getSpotifyTrackDto().getSpotifyArtistDto()))).get(0));
+    public Track validateTrack(SpotifyFullTrack spotifyFullTrack) {
+        Track newTrack = new Track(spotifyFullTrack.getSpotifyTrackDto().getTitle(), validateArtist(spotifyFullTrack.getSpotifyTrackDto().getSpotifyArtistDto()).get(0));
         Track trackToCheck = tracksService.findByTitle(newTrack.getTitle());
         if (trackToCheck != null) {
-            return;
+            return trackToCheck;
         }
-        tracksService.addTrack(newTrack);
+        return tracksService.addTrack(newTrack);
     }
 }

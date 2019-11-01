@@ -22,7 +22,7 @@ public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ARTIST_ID", unique = true)
-    private long artistId;
+    protected long artistId;
 
     @Setter
     @Column(name = "NAME")
@@ -34,14 +34,14 @@ public class Artist {
 
     @OneToMany(targetEntity = UsersArtist.class,
             mappedBy = "artist",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.PERSIST,
             fetch = FetchType.EAGER)
     private List<UsersArtist> usersArtist = new ArrayList<>();
 
     @OneToMany(
             targetEntity = Track.class,
             mappedBy = "artist",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.PERSIST,
             fetch = FetchType.EAGER
     )
     private List<Track> tracks = new ArrayList<>();

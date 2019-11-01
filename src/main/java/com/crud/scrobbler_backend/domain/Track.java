@@ -29,20 +29,20 @@ public class Track {
     private String title;
 
     @Setter
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ARTIST_ID")
     private Artist artist;
 
     @OneToMany (targetEntity = UsersTrack.class,
             mappedBy = "track",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.PERSIST,
             fetch = FetchType.EAGER)
     private List<UsersTrack> usersTracks = new ArrayList<>();
 
     @OneToMany (
             targetEntity = Comment.class,
             mappedBy = "track",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.PERSIST,
             fetch = FetchType.EAGER
     )
     private List<Comment> comments = new ArrayList<>();

@@ -27,11 +27,11 @@ public class Comment {
     @Column(name = "TEXT")
     private String text;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "TRACK_ID")
     private Track track;
 }

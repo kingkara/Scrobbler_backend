@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsersArtistDto {
-    private long id;
+    private UsersArtist.UsersArtistIdBuilder id;
     private long count;
     private String lastPlayedTime;
     private User user;

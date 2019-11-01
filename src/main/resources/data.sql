@@ -1,1 +1,1 @@
-insert into Users (user_id, username, email, spotify_user_id) values ('1', 'testUser', 'test@test.com', '1166728885');
+insert into Users (user_id, username, email, spotify_user_id) values ('123123', 'testUser', 'test@test.com', '1166728885');

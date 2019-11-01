@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsersTrackDto {
-    private long id;
+    private UsersTrack.UsersTrackIdBuilder id;
     private String lastPlayedTime;
     private long count;
     private boolean favouriteStatus;

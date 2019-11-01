@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "USER_ID", unique = true)
-    private long id;
+    protected long id;
 
     @Setter
     @Column(name = "USERNAME")
@@ -39,21 +40,21 @@ public class User {
 
     @OneToMany(targetEntity = UsersArtist.class,
             mappedBy = "user",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.PERSIST,
             fetch = FetchType.EAGER)
     private List<UsersArtist> usersArtists = new ArrayList<>();
 
     @OneToMany(
             targetEntity = UsersTrack.class,
             mappedBy = "user",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.PERSIST,
             fetch = FetchType.EAGER)
     private List<UsersTrack> usersTracks = new ArrayList<>();
 
     @OneToMany(
             targetEntity = Comment.class,
             mappedBy = "user",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.PERSIST,
             fetch = FetchType.EAGER
     )
     private List<Comment> comments = new ArrayList<>();

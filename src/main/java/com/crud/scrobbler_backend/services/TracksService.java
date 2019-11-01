@@ -13,8 +13,8 @@ public class TracksService {
     @Autowired
     private TracksRepository repository;
 
-    public void addTrack(final Track track) {
-        repository.save(track);
+    public Track addTrack(final Track track) {
+        return repository.save(track);
     }
 
     public Track findByTitle(final String title) {

@@ -1,11 +1,13 @@
 package com.crud.scrobbler_backend.spotify.validator;
 
-import com.crud.scrobbler_backend.domain.UsersArtist;
-import com.crud.scrobbler_backend.domain.UsersTrack;
+import com.crud.scrobbler_backend.domain.*;
 import com.crud.scrobbler_backend.exceptions.*;
 import com.crud.scrobbler_backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+
 
 @Component
 public class UsersArtistsAndTracksValidator {
@@ -13,16 +15,11 @@ public class UsersArtistsAndTracksValidator {
     private UsersArtistsService usersArtistsService;
     @Autowired
     private UsersTracksService usersTracksService;
-    @Autowired
-    private UsersService usersService;
-    @Autowired
-    private ArtistsService artistsService;
-    @Autowired
-    private TracksService tracksService;
 
-    public void validateUsersArtist(long userId, long artistId, String lastlyPlayed) throws UserNotFoundException, ArtistNotFoundException, UsersArtistNotFoundException {
-        UsersArtist newUsersArtist = new UsersArtist(usersService.getUser(userId), artistsService.getArtistById(artistId));
-        UsersArtist usersArtistToCheck = usersArtistsService.getByUserAndArtistsId(userId, artistId);
+    public void validateUsersArtist(User user, Artist artist, String lastlyPlayed) throws UsersArtistNotFoundException {
+        UsersArtist newUsersArtist = new UsersArtist(user, artist);
+        newUsersArtist.setLastPlayedTime(lastlyPlayed);
+        UsersArtist usersArtistToCheck = usersArtistsService.getByUserAndArtistsId(user.getId(), artist.getArtistId());
         if (usersArtistToCheck!=null) {
             usersArtistsService.updateCount(usersArtistToCheck.getId(),lastlyPlayed);
             return;
@@ -30,9 +27,10 @@ public class UsersArtistsAndTracksValidator {
         usersArtistsService.addUsersArtist(newUsersArtist);
     }
 
-    public void validateUsersTrack(long userId, long trackId, String lastlyPlayed) throws UserNotFoundException, TrackNotFoundException, UsersTrackNotFoundException {
-        UsersTrack newUsersTrack = new UsersTrack(usersService.getUser(userId), tracksService.getTrack(trackId));
-        UsersTrack usersTrackToCheck = usersTracksService.getByUserAndTrackId(userId, trackId);
+    public void validateUsersTrack(User user, Track track, String lastlyPlayed) {
+        UsersTrack newUsersTrack = new UsersTrack(user, track);
+        newUsersTrack.setLastPlayedTime(lastlyPlayed);
+        UsersTrack usersTrackToCheck = usersTracksService.getByUserAndTrackId(user.getId(), track.getId());
         if (usersTrackToCheck!=null) {
             usersTracksService.updateCountAndLastlyPlayed(usersTrackToCheck.getId(), lastlyPlayed);
             return;

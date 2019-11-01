@@ -1,7 +1,6 @@
 package com.crud.scrobbler_backend.services;
 
 import com.crud.scrobbler_backend.domain.UsersTrack;
-import com.crud.scrobbler_backend.exceptions.UserNotFoundException;
 import com.crud.scrobbler_backend.exceptions.UsersTrackNotFoundException;
 import com.crud.scrobbler_backend.repository.UsersTracksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,11 @@ public class UsersTracksService {
     }
 
     public List<UsersTrack> getTopTracks (final long userId) throws UsersTrackNotFoundException {
-        return repository.findAllByUser_IdOrderByCount(userId);
+        return repository.findAllByUser_IdOrderByCountDesc(userId).subList(0,5);
     }
 
-    public UsersTrack changeFavouriteStatus(final long id) throws UsersTrackNotFoundException {
-        UsersTrack trackToUpdate = repository.findById(id).orElseThrow(UsersTrackNotFoundException ::new);
+    public UsersTrack changeFavouriteStatus(final UsersTrack.UsersTrackIdBuilder id) {
+        UsersTrack trackToUpdate = repository.findById(id);
         if(trackToUpdate.isFavouriteStatus()) {
             trackToUpdate.setFavouriteStatus(false);
         }
@@ -43,13 +42,19 @@ public class UsersTracksService {
         repository.save(usersTrack);
     }
 
-    public void updateCountAndLastlyPlayed(final long id, final String thisTimePlayed) throws UsersTrackNotFoundException {
-        UsersTrack trackToUpdate = repository.findById(id).orElseThrow(UsersTrackNotFoundException ::new);
+    public UsersTrack updateCountAndLastlyPlayed(final UsersTrack.UsersTrackIdBuilder id, final String thisTimePlayed) {
+        UsersTrack trackToUpdate = repository.findById(id);
         String lastlyPlayedAt = trackToUpdate.getLastPlayedTime();
         if(!thisTimePlayed.equals(lastlyPlayedAt)) {
             trackToUpdate.setCount(trackToUpdate.getCount()+1);
             trackToUpdate.setLastPlayedTime(thisTimePlayed);
             repository.save(trackToUpdate);
         }
+        return trackToUpdate;
+    }
+
+    public void deleteUsersTrack(final UsersTrack.UsersTrackIdBuilder id) {
+        UsersTrack usersTrackToDelete = repository.findById(id);
+        repository.delete(usersTrackToDelete);
     }
 }

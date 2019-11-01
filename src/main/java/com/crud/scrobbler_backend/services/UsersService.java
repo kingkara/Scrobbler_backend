@@ -19,8 +19,8 @@ public class UsersService {
         return repository.findUserBySpotifyId(spotifyId);
     }
 
-    public void saveUser(final User user) {
-        repository.save(user);
+    public User saveUser(final User user) {
+        return repository.save(user);
     }
 
     public User changeUser(final User user) throws UserNotFoundException {

@@ -21,14 +21,26 @@ import static org.junit.jupiter.api.Assertions.*;
 class CommentsServiceTestSuite {
     @Autowired
     private CommentsService service;
+    @Autowired
+    private TracksService tracksService;
+    @Autowired
+    private UsersService usersService;
+    @Autowired
+    private ArtistsService artistsService;
 
     @Test
     void shouldGetComments() throws TrackNotFoundException, CommentNotFoundException {
         //Given
-        Comment comment = new Comment("Test comment", new User("Test username", "Test email", "Test spotify id"),
-                new Track("Test title", new Artist("Test name", "Test id")));
+        User user =  new User("Test username", "Test email", "Test spotify id");
+        usersService.saveUser(user);
+        Artist artist = new Artist("Test name", "Test id");
+        artistsService.addArtist(artist);
+        Track track = new Track("Test title", artist);
+        tracksService.addTrack(track);
+        long trackId = track.getId();
+
+        Comment comment = new Comment("Test comment",user, track);
         service.addComment(comment);
-        long trackId = comment.getTrack().getId();
         long id = comment.getId();
 
         //When
@@ -51,8 +63,14 @@ class CommentsServiceTestSuite {
     @Test
     void shouldAddComment() throws CommentNotFoundException {
         //Given
-        Comment comment = new Comment("Test comment", new User("Test username", "Test email", "Test spotify id"),
-                new Track("Test title", new Artist("Test name", "Test id")));
+        User user =  new User("Test username", "Test email", "Test spotify id");
+        usersService.saveUser(user);
+        Artist artist = new Artist("Test name", "Test id");
+        artistsService.addArtist(artist);
+        Track track = new Track("Test title", artist);
+        tracksService.addTrack(track);
+
+        Comment comment = new Comment("Test comment",user, track);
 
         //When
         Comment commentAdded = service.addComment(comment);
@@ -74,8 +92,14 @@ class CommentsServiceTestSuite {
     @Test
     void shouldEditComment() throws CommentNotFoundException {
         //Given
-        Comment comment = new Comment("Test comment", new User("Test username", "Test email", "Test spotify id"),
-                new Track("Test title", new Artist("Test name", "Test id")));
+        User user =  new User("Test username", "Test email", "Test spotify id");
+        usersService.saveUser(user);
+        Artist artist = new Artist("Test name", "Test id");
+        artistsService.addArtist(artist);
+        Track track = new Track("Test title", artist);
+        tracksService.addTrack(track);
+
+        Comment comment = new Comment("Test comment",user, track);
         service.addComment(comment);
         long id = comment.getId();
 

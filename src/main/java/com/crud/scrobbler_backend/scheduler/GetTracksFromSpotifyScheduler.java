@@ -16,11 +16,9 @@ public class GetTracksFromSpotifyScheduler {
     @Autowired
     private SpotifyService service;
 
-    //    @Scheduled (cron = "0 * * * * ?")
     @Scheduled(fixedRate = 1000)
     public void getTracksFromSpotify() throws JsonProcessingException {
-        saver.saveTracksAndArtists();
         saver.saveUsersTracksAndArtists();
-        System.out.println(service.getCurrentPlaying().getTitle());
+        service.getCurrentPlaying();
     }
 }

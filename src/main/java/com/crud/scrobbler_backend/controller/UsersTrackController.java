@@ -1,5 +1,6 @@
 package com.crud.scrobbler_backend.controller;
 
+import com.crud.scrobbler_backend.domain.UsersTrack;
 import com.crud.scrobbler_backend.domain.UsersTrackDto;
 import com.crud.scrobbler_backend.exceptions.UsersTrackNotFoundException;
 import com.crud.scrobbler_backend.mapper.UsersTracksMapper;
@@ -29,7 +30,7 @@ public class UsersTrackController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/usersTracks/{usersTrackId}")
-    public UsersTrackDto changeFavouriteStatus(@PathVariable long usersTrackId) throws UsersTrackNotFoundException {
+    public UsersTrackDto changeFavouriteStatus(@PathVariable UsersTrack.UsersTrackIdBuilder usersTrackId) throws UsersTrackNotFoundException {
         return mapper.mapToUsersTrackDto(service.changeFavouriteStatus(usersTrackId));
     }
 
