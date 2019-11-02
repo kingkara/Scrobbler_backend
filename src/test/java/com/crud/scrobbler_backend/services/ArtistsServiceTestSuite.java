@@ -1,7 +1,6 @@
 package com.crud.scrobbler_backend.services;
 
 import com.crud.scrobbler_backend.domain.Artist;
-import com.crud.scrobbler_backend.domain.ArtistDto;
 import com.crud.scrobbler_backend.exceptions.ArtistNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -66,7 +65,7 @@ class ArtistsServiceTestSuite {
 
         //When
         List<Artist> artists = service.getArtists();
-        int artistToCheckRow = artists.size()-1;
+        int artistToCheckRow = artists.size() - 1;
 
         //Then
         assertEquals("Test name", artists.get(artistToCheckRow).getName());

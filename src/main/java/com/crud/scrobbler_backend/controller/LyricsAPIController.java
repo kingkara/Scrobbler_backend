@@ -12,7 +12,7 @@ public class LyricsAPIController {
     @Autowired
     private LyricsApiService service;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/lyrics/{artistName}/{title}")
+    @GetMapping(value = "/lyrics/{artistName}/{title}")
     public LyricsDto getLyrics(@PathVariable String artistName, @PathVariable String title) {
         return service.getLyrics(artistName, title);
     }

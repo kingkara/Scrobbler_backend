@@ -24,11 +24,6 @@ public class UsersTrack {
         UsersTrackIdBuilder() {
         }
 
-        public UsersTrackIdBuilder(Long userId, Long trackId) {
-            this.userId = userId;
-            this.trackId = trackId;
-        }
-
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -44,6 +39,18 @@ public class UsersTrack {
         public int hashCode() {
             return userId.hashCode() + trackId.hashCode();
         }
+    }
+
+    public UsersTrack(User user, Track track) {
+        this.user = user;
+        this.track = track;
+        this.id.trackId = track.getId();
+        this.id.userId = user.getId();
+        this.count = 1;
+        this.favouriteStatus = false;
+
+        user.getUsersTracks().add(this);
+        track.getUsersTracks().add(this);
     }
 
     @EmbeddedId
@@ -71,16 +78,4 @@ public class UsersTrack {
     @ManyToOne
     @JoinColumn(name = "TRACK_ID", insertable = false, updatable = false)
     private Track track;
-
-    public UsersTrack(User user, Track track) {
-        this.user = user;
-        this.track = track;
-        this.id.trackId = track.getId();
-        this.id.userId = user.getId();
-        this.count = 1;
-        this.favouriteStatus = false;
-
-        user.getUsersTracks().add(this);
-        track.getUsersTracks().add(this);
-    }
 }

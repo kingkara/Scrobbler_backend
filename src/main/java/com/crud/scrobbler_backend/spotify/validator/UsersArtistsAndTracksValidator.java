@@ -6,9 +6,6 @@ import com.crud.scrobbler_backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
-
 @Component
 public class UsersArtistsAndTracksValidator {
     @Autowired
@@ -20,8 +17,8 @@ public class UsersArtistsAndTracksValidator {
         UsersArtist newUsersArtist = new UsersArtist(user, artist);
         newUsersArtist.setLastPlayedTime(lastlyPlayed);
         UsersArtist usersArtistToCheck = usersArtistsService.getByUserAndArtistsId(user.getId(), artist.getArtistId());
-        if (usersArtistToCheck!=null) {
-            usersArtistsService.updateCount(usersArtistToCheck.getId(),lastlyPlayed);
+        if (usersArtistToCheck != null) {
+            usersArtistsService.updateCount(usersArtistToCheck.getId(), lastlyPlayed);
             return;
         }
         usersArtistsService.addUsersArtist(newUsersArtist);
@@ -31,7 +28,7 @@ public class UsersArtistsAndTracksValidator {
         UsersTrack newUsersTrack = new UsersTrack(user, track);
         newUsersTrack.setLastPlayedTime(lastlyPlayed);
         UsersTrack usersTrackToCheck = usersTracksService.getByUserAndTrackId(user.getId(), track.getId());
-        if (usersTrackToCheck!=null) {
+        if (usersTrackToCheck != null) {
             usersTracksService.updateCountAndLastlyPlayed(usersTrackToCheck.getId(), lastlyPlayed);
             return;
         }

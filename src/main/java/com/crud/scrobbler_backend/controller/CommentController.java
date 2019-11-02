@@ -20,22 +20,22 @@ public class CommentController {
     @Autowired
     private CommentsMapper mapper;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/comments/{trackId}")
+    @GetMapping(value = "/comments/{trackId}")
     public List<CommentDto> getComments(@PathVariable long trackId) throws TrackNotFoundException {
         return mapper.mapToCommentDtoList(service.getComments(trackId));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/comments")
+    @PostMapping(value = "/comments")
     public void createComment(@RequestBody CommentDto commentDto) {
         service.addComment(mapper.mapToComment(commentDto));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/comments")
+    @PutMapping(value = "/comments")
     public CommentDto updateComment(@RequestBody CommentDto commentDto) throws CommentNotFoundException {
-        return mapper.mapToCommentDto(service.editComment(commentDto.getId(),commentDto.getText()));
+        return mapper.mapToCommentDto(service.editComment(commentDto.getId(), commentDto.getText()));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/comments/{commentId}")
+    @DeleteMapping(value = "/comments/{commentId}")
     public void deleteComment(@PathVariable long commentId) throws CommentNotFoundException {
         service.deleteComment(commentId);
     }

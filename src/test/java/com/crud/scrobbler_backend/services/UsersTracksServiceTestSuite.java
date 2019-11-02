@@ -30,7 +30,7 @@ class UsersTracksServiceTestSuite {
     @Test
     void shouldGetAllUsersTracks() throws UsersTrackNotFoundException {
         //Given
-        User user = new  User("test name", "test email", "test spotify id");
+        User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
         Artist artist = new Artist("Test artist name", "Test id");
         artistsService.addArtist(artist);
@@ -46,7 +46,7 @@ class UsersTracksServiceTestSuite {
 
         //When
         List<UsersTrack> usersTracks = service.getAllUsersTracks(usersId);
-        int elementToDelete = usersTracks.size()-1;
+        int elementToDelete = usersTracks.size() - 1;
 
         //Then
         assertEquals("test name", usersTracks.get(elementToDelete).getUser().getUsername());
@@ -66,7 +66,7 @@ class UsersTracksServiceTestSuite {
     @Test
     void shouldGetTopTracks() throws UsersTrackNotFoundException {
         //Given
-        User user = new  User("test name", "test email", "test spotify id");
+        User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
         long usersId = user.getId();
 
@@ -190,7 +190,7 @@ class UsersTracksServiceTestSuite {
     @Test
     void shouldChangeFavouriteStatus() {
         //Given
-        User user = new  User("test name", "test email", "test spotify id");
+        User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
         Artist artist = new Artist("Test artist name", "Test id");
         artistsService.addArtist(artist);
@@ -204,7 +204,7 @@ class UsersTracksServiceTestSuite {
         UsersTrack.UsersTrackIdBuilder id = usersTrack.getId();
 
         //When
-        UsersTrack usersFavourite =service.changeFavouriteStatus(id);
+        UsersTrack usersFavourite = service.changeFavouriteStatus(id);
 
         //Then
         assertEquals("test name", usersFavourite.getUser().getUsername());
@@ -224,7 +224,7 @@ class UsersTracksServiceTestSuite {
     @Test
     void shouldGetFavourites() throws UsersTrackNotFoundException {
         //Given
-        User user = new  User("test name", "test email", "test spotify id");
+        User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
         long usersId = user.getId();
 
@@ -271,7 +271,7 @@ class UsersTracksServiceTestSuite {
     @Test
     void shouldGetByUserAndTrackId() {
         //Given
-        User user = new  User("test name", "test email", "test spotify id");
+        User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
         long userId = user.getId();
         Artist artist = new Artist("Test artist name", "Test id");
@@ -306,7 +306,7 @@ class UsersTracksServiceTestSuite {
     @Test
     void updateCountAndLastlyPlayed() {
         //Given
-        User user = new  User("test name", "test email", "test spotify id");
+        User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
         Artist artist = new Artist("Test artist name", "Test id");
         artistsService.addArtist(artist);

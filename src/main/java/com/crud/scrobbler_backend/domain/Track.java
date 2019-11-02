@@ -33,13 +33,13 @@ public class Track {
     @JoinColumn(name = "ARTIST_ID")
     private Artist artist;
 
-    @OneToMany (targetEntity = UsersTrack.class,
+    @OneToMany(targetEntity = UsersTrack.class,
             mappedBy = "track",
             cascade = CascadeType.PERSIST,
             fetch = FetchType.EAGER)
     private List<UsersTrack> usersTracks = new ArrayList<>();
 
-    @OneToMany (
+    @OneToMany(
             targetEntity = Comment.class,
             mappedBy = "track",
             cascade = CascadeType.PERSIST,

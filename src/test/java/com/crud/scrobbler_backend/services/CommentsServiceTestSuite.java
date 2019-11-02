@@ -31,7 +31,7 @@ class CommentsServiceTestSuite {
     @Test
     void shouldGetComments() throws TrackNotFoundException, CommentNotFoundException {
         //Given
-        User user =  new User("Test username", "Test email", "Test spotify id");
+        User user = new User("Test username", "Test email", "Test spotify id");
         usersService.saveUser(user);
         Artist artist = new Artist("Test name", "Test id");
         artistsService.addArtist(artist);
@@ -39,7 +39,7 @@ class CommentsServiceTestSuite {
         tracksService.addTrack(track);
         long trackId = track.getId();
 
-        Comment comment = new Comment("Test comment",user, track);
+        Comment comment = new Comment("Test comment", user, track);
         service.addComment(comment);
         long id = comment.getId();
 
@@ -63,14 +63,14 @@ class CommentsServiceTestSuite {
     @Test
     void shouldAddComment() throws CommentNotFoundException {
         //Given
-        User user =  new User("Test username", "Test email", "Test spotify id");
+        User user = new User("Test username", "Test email", "Test spotify id");
         usersService.saveUser(user);
         Artist artist = new Artist("Test name", "Test id");
         artistsService.addArtist(artist);
         Track track = new Track("Test title", artist);
         tracksService.addTrack(track);
 
-        Comment comment = new Comment("Test comment",user, track);
+        Comment comment = new Comment("Test comment", user, track);
 
         //When
         Comment commentAdded = service.addComment(comment);
@@ -92,14 +92,14 @@ class CommentsServiceTestSuite {
     @Test
     void shouldEditComment() throws CommentNotFoundException {
         //Given
-        User user =  new User("Test username", "Test email", "Test spotify id");
+        User user = new User("Test username", "Test email", "Test spotify id");
         usersService.saveUser(user);
         Artist artist = new Artist("Test name", "Test id");
         artistsService.addArtist(artist);
         Track track = new Track("Test title", artist);
         tracksService.addTrack(track);
 
-        Comment comment = new Comment("Test comment",user, track);
+        Comment comment = new Comment("Test comment", user, track);
         service.addComment(comment);
         long id = comment.getId();
 

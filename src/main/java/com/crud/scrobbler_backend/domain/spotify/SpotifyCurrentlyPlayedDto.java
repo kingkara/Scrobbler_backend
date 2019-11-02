@@ -15,8 +15,10 @@ import java.util.List;
 public class SpotifyCurrentlyPlayedDto {
     @JsonProperty("id")
     private String id;
+
     @JsonProperty("name")
     private String title;
+
     @JsonProperty("astists")
     private List<SpotifyArtistDto> artistDtos;
 }

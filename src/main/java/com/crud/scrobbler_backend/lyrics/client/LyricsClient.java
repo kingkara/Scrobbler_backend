@@ -26,7 +26,7 @@ public class LyricsClient {
                 .build().encode().toUri();
 
         LyricsDto lyricsResponse = restTemplate.getForObject(uri, LyricsDto.class);
-        if(lyricsResponse!=null) {
+        if (lyricsResponse != null) {
             return lyricsResponse;
         }
         return new LyricsDto();

@@ -96,7 +96,7 @@ class TracksServiceTestSuite {
 
         //When
         List<Track> tracks = service.getTracks();
-        int trackToDeleteRow = tracks.size()-1;
+        int trackToDeleteRow = tracks.size() - 1;
 
         //Then
         assertEquals("Test title", tracks.get(trackToDeleteRow).getTitle());

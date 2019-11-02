@@ -13,17 +13,17 @@ public class UsersTracksService {
     @Autowired
     private UsersTracksRepository repository;
 
-    public List<UsersTrack> getAllUsersTracks (final long userId) throws UsersTrackNotFoundException {
+    public List<UsersTrack> getAllUsersTracks(final long userId) throws UsersTrackNotFoundException {
         return repository.findAllByUser_Id(userId);
     }
 
-    public List<UsersTrack> getTopTracks (final long userId) throws UsersTrackNotFoundException {
-        return repository.findAllByUser_IdOrderByCountDesc(userId).subList(0,5);
+    public List<UsersTrack> getTopTracks(final long userId) throws UsersTrackNotFoundException {
+        return repository.findAllByUser_IdOrderByCountDesc(userId).subList(0, 5);
     }
 
     public UsersTrack changeFavouriteStatus(final UsersTrack.UsersTrackIdBuilder id) {
         UsersTrack trackToUpdate = repository.findById(id);
-        if(trackToUpdate.isFavouriteStatus()) {
+        if (trackToUpdate.isFavouriteStatus()) {
             trackToUpdate.setFavouriteStatus(false);
         }
         trackToUpdate.setFavouriteStatus(true);
@@ -45,8 +45,8 @@ public class UsersTracksService {
     public UsersTrack updateCountAndLastlyPlayed(final UsersTrack.UsersTrackIdBuilder id, final String thisTimePlayed) {
         UsersTrack trackToUpdate = repository.findById(id);
         String lastlyPlayedAt = trackToUpdate.getLastPlayedTime();
-        if(!thisTimePlayed.equals(lastlyPlayedAt)) {
-            trackToUpdate.setCount(trackToUpdate.getCount()+1);
+        if (!thisTimePlayed.equals(lastlyPlayedAt)) {
+            trackToUpdate.setCount(trackToUpdate.getCount() + 1);
             trackToUpdate.setLastPlayedTime(thisTimePlayed);
             repository.save(trackToUpdate);
         }

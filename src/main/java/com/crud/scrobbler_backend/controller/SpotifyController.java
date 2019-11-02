@@ -16,13 +16,13 @@ public class SpotifyController {
     @Autowired
     private SpotifyService service;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/playback")
-    public List<SpotifyFullTrackDto> getPlayback() throws  JsonProcessingException {
+    @GetMapping(value = "/playback")
+    public List<SpotifyFullTrackDto> getPlayback() throws JsonProcessingException {
         return service.getPlayback();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/current")
-    public SpotifyCurrentlyPlayedDto getCurrentPlaying() throws  JsonProcessingException {
+    @GetMapping(value = "/current")
+    public SpotifyCurrentlyPlayedDto getCurrentPlaying() throws JsonProcessingException {
         return service.getCurrentPlaying();
     }
 

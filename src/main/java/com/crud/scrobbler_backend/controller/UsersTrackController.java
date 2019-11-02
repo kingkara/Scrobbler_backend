@@ -19,22 +19,22 @@ public class UsersTrackController {
     @Autowired
     private UsersTracksMapper mapper;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/usersTracks/{userId}")
+    @GetMapping(value = "/usersTracks/{userId}")
     public List<UsersTrackDto> getUsersTracks(@PathVariable long userId) throws UsersTrackNotFoundException {
         return mapper.mapToUsersTrackDtoList(service.getAllUsersTracks(userId));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/usersTracks")
+    @GetMapping(value = "/usersTracks")
     public List<UsersTrackDto> getFavouriteTracks(@RequestBody long userId) throws UsersTrackNotFoundException {
         return mapper.mapToUsersTrackDtoList(service.getFavourites(userId));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/usersTracks/{usersTrackId}")
-    public UsersTrackDto changeFavouriteStatus(@PathVariable UsersTrack.UsersTrackIdBuilder usersTrackId) throws UsersTrackNotFoundException {
+    @PutMapping(value = "/usersTracks/{usersTrackId}")
+    public UsersTrackDto changeFavouriteStatus(@PathVariable UsersTrack.UsersTrackIdBuilder usersTrackId) {
         return mapper.mapToUsersTrackDto(service.changeFavouriteStatus(usersTrackId));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/usersTrack/top/{userId}")
+    @GetMapping(value = "/usersTrack/top/{userId}")
     public List<UsersTrackDto> getTopUsersTracks(@PathVariable long userId) throws UsersTrackNotFoundException {
         return mapper.mapToUsersTrackDtoList(service.getTopTracks(userId));
     }

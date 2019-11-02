@@ -17,6 +17,7 @@ public class CommentsService {
     public Comment getComment(final long id) throws CommentNotFoundException {
         return repository.findById(id).orElseThrow(CommentNotFoundException::new);
     }
+
     public List<Comment> getComments(final long trackId) throws TrackNotFoundException {
         return repository.findAllByTrack_Id(trackId);
     }

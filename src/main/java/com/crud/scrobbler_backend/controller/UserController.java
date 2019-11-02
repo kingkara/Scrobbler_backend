@@ -16,22 +16,22 @@ public class UserController {
     @Autowired
     private UsersMapper mapper;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/user/{userId}")
+    @GetMapping(value = "/user/{userId}")
     public UserDto getUser(@PathVariable long userId) throws UserNotFoundException {
         return mapper.mapToUserDto(service.getUser(userId));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/user")
+    @PostMapping(value = "/user")
     public void createUser(@RequestBody UserDto userDto) {
         service.saveUser(mapper.mapToUser(userDto));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/user")
+    @PutMapping(value = "/user")
     public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotFoundException {
         return mapper.mapToUserDto(service.changeUser(mapper.mapToUser(userDto)));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/user/{userId}")
+    @DeleteMapping(value = "/user/{userId}")
     public void deleteUser(@PathVariable long userId) throws UserNotFoundException {
         service.deleteUser(userId);
     }

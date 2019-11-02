@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +27,7 @@ class UsersArtistsServiceTestSuite {
     @Test
     void shouldGetAllArtists() throws UsersArtistNotFoundException {
         //Given
-        User user = new  User("test name", "test email", "test spotify id");
+        User user = new User("test name", "test email", "test spotify id");
         Artist artist = new Artist("test artist name", "test artist id");
         usersService.saveUser(user);
         artistsService.addArtist(artist);
@@ -41,14 +40,14 @@ class UsersArtistsServiceTestSuite {
 
         //When
         List<UsersArtist> usersArtists = service.getAllArtists(userId);
-        int usersArtistsRow = usersArtists.size()-1;
+        int usersArtistsRow = usersArtists.size() - 1;
 
         //Then
         assertEquals("test name", usersArtists.get(usersArtistsRow).getUser().getUsername());
         assertEquals("test email", usersArtists.get(usersArtistsRow).getUser().getEmail());
         assertEquals("test spotify id", usersArtists.get(usersArtistsRow).getUser().getSpotifyId());
-        assertEquals("test artist name",usersArtists.get(usersArtistsRow).getArtist().getName());
-        assertEquals("test artist id",usersArtists.get(usersArtistsRow).getArtist().getSpotifyArtistId());
+        assertEquals("test artist name", usersArtists.get(usersArtistsRow).getArtist().getName());
+        assertEquals("test artist id", usersArtists.get(usersArtistsRow).getArtist().getSpotifyArtistId());
         assertEquals("test lastly played at", usersArtists.get(usersArtistsRow).getLastPlayedTime());
         assertEquals(1, usersArtists.get(usersArtistsRow).getCount());
 
@@ -164,8 +163,8 @@ class UsersArtistsServiceTestSuite {
         assertEquals("test name", usersArtistFromDb.getUser().getUsername());
         assertEquals("test email", usersArtistFromDb.getUser().getEmail());
         assertEquals("test spotify id", usersArtistFromDb.getUser().getSpotifyId());
-        assertEquals("test artist name",usersArtistFromDb.getArtist().getName());
-        assertEquals("test artist id",usersArtistFromDb.getArtist().getSpotifyArtistId());
+        assertEquals("test artist name", usersArtistFromDb.getArtist().getName());
+        assertEquals("test artist id", usersArtistFromDb.getArtist().getSpotifyArtistId());
         assertEquals("test lastly played at", usersArtistFromDb.getLastPlayedTime());
         assertEquals(1, usersArtistFromDb.getCount());
 
@@ -199,8 +198,8 @@ class UsersArtistsServiceTestSuite {
         assertEquals("test name", usersArtistSaved.getUser().getUsername());
         assertEquals("test email", usersArtistSaved.getUser().getEmail());
         assertEquals("test spotify id", usersArtistSaved.getUser().getSpotifyId());
-        assertEquals("test artist name",usersArtistSaved.getArtist().getName());
-        assertEquals("test artist id",usersArtistSaved.getArtist().getSpotifyArtistId());
+        assertEquals("test artist name", usersArtistSaved.getArtist().getName());
+        assertEquals("test artist id", usersArtistSaved.getArtist().getSpotifyArtistId());
         assertEquals("test lastly played at", usersArtistSaved.getLastPlayedTime());
         assertEquals(10, usersArtistSaved.getCount());
 

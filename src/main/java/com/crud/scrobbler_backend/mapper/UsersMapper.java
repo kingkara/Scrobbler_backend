@@ -13,7 +13,7 @@ public class UsersMapper {
     }
 
     public UserDto mapToUserDto(final User user) {
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getSpotifyId(), user.getUsersArtists(), user.getUsersTracks(),
-                user.getComments());
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getSpotifyId(),
+                user.getUsersArtists(), user.getUsersTracks(), user.getComments());
     }
 }

@@ -27,20 +27,20 @@ public class ArtistsAndTracksValidator {
         List<Artist> artistToCheck = new ArrayList<>();
         for (Artist artistToValidate : newArtists) {
             System.out.println(artistToValidate.getName());
-            if(artistToValidate.equals(artistsService.getArtistByName(artistToValidate.getName()))){
+            if (artistToValidate.equals(artistsService.getArtistByName(artistToValidate.getName()))) {
                 artistToCheck.add(artistToValidate);
             }
         }
 
-            if (artistToCheck.size() != 0) {
-                for (Artist artist : newArtists) {
-                    for (Artist artistToDelete : artistToCheck) {
-                        if (artist.equals(artistToDelete)) {
-                            newArtists.remove(artist);
-                        }
+        if (artistToCheck.size() != 0) {
+            for (Artist artist : newArtists) {
+                for (Artist artistToDelete : artistToCheck) {
+                    if (artist.equals(artistToDelete)) {
+                        newArtists.remove(artist);
                     }
                 }
             }
+        }
         for (Artist artist : newArtists) {
             artistsService.addArtist(artist);
         }

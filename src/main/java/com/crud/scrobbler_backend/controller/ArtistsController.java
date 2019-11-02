@@ -17,12 +17,12 @@ public class ArtistsController {
     @Autowired
     private ArtistMapper mapper;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/artists/{artistId}")
+    @GetMapping(value = "/artists/{artistId}")
     public ArtistDto getArtist(@PathVariable long artistId) throws ArtistNotFoundException {
         return mapper.mapToArtistDto(service.getArtistById(artistId));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/artists/{artistId}")
+    @DeleteMapping(value = "/artists/{artistId}")
     public void deleteArtist(@PathVariable long artistsId) throws ArtistNotFoundException {
         service.deleteArtist(artistsId);
     }

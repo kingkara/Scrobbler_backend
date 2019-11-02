@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Comparator;
 
 @Component
-public class StringSorter implements Comparator <SpotifyFullTrack> {
+public class StringSorter implements Comparator<SpotifyFullTrack> {
     @Override
     public int compare(SpotifyFullTrack track1, SpotifyFullTrack track2) {
         return track2.getPlayedAt().compareTo(track1.getPlayedAt());

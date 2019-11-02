@@ -27,8 +27,8 @@ class LyricsApiServiceTestSuite {
         String artistName = "Test name";
         String title = "Test title";
         LyricsDto lyrics = new LyricsDto("Test lyrics");
-        when(client.getTrackLyrics(artistName,title)).thenReturn(lyrics);
-        when(service.getLyrics(artistName,title)).thenReturn(lyrics);
+        when(client.getTrackLyrics(artistName, title)).thenReturn(lyrics);
+        when(service.getLyrics(artistName, title)).thenReturn(lyrics);
 
         //When
         LyricsDto lyricsFromApi = service.getLyrics(artistName, title);
