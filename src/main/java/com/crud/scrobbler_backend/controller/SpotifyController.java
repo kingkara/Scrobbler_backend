@@ -17,12 +17,12 @@ public class SpotifyController {
     private SpotifyService service;
 
     @GetMapping(value = "/playback")
-    public List<SpotifyFullTrackDto> getPlayback() throws JsonProcessingException {
+    public List<SpotifyFullTrackDto> getPlayback() throws Exception {
         return service.getPlayback();
     }
 
     @GetMapping(value = "/current")
-    public SpotifyCurrentlyPlayedDto getCurrentPlaying() throws JsonProcessingException {
+    public SpotifyCurrentlyPlayedDto getCurrentPlaying() throws Exception {
         return service.getCurrentPlaying();
     }
 

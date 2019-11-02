@@ -12,4 +12,10 @@ public class CommentDto {
     private String text;
     private User user;
     private Track track;
+
+    public CommentDto(String text, User user, Track track) {
+        this.text = text;
+        this.user = user;
+        this.track = track;
+    }
 }

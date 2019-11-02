@@ -20,12 +20,12 @@ public class UsersTrackController {
     private UsersTracksMapper mapper;
 
     @GetMapping(value = "/usersTracks/{userId}")
-    public List<UsersTrackDto> getUsersTracks(@PathVariable long userId) throws UsersTrackNotFoundException {
+    public List<UsersTrackDto> getUsersTracks(@PathVariable long userId) throws Exception {
         return mapper.mapToUsersTrackDtoList(service.getAllUsersTracks(userId));
     }
 
     @GetMapping(value = "/usersTracks")
-    public List<UsersTrackDto> getFavouriteTracks(@RequestBody long userId) throws UsersTrackNotFoundException {
+    public List<UsersTrackDto> getFavouriteTracks(@RequestBody long userId) throws Exception {
         return mapper.mapToUsersTrackDtoList(service.getFavourites(userId));
     }
 
@@ -35,7 +35,7 @@ public class UsersTrackController {
     }
 
     @GetMapping(value = "/usersTrack/top/{userId}")
-    public List<UsersTrackDto> getTopUsersTracks(@PathVariable long userId) throws UsersTrackNotFoundException {
+    public List<UsersTrackDto> getTopUsersTracks(@PathVariable long userId) throws Exception {
         return mapper.mapToUsersTrackDtoList(service.getTopTracks(userId));
     }
 }

@@ -15,7 +15,8 @@ public class ArtistMapper {
     }
 
     public ArtistDto mapToArtistDto(final Artist artist) {
-        return new ArtistDto(artist.getArtistId(), artist.getName(), artist.getSpotifyArtistId(), artist.getUsersArtist(), artist.getTracks());
+        return new ArtistDto(artist.getArtistId(), artist.getName(), artist.getSpotifyArtistId(),
+                artist.getUsersArtist(), artist.getTracks());
     }
 
     public List<ArtistDto> mapToArtistDtoList(final List<Artist> artists) {

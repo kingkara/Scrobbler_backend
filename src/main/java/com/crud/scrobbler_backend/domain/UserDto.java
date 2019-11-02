@@ -17,4 +17,10 @@ public class UserDto {
     private List<UsersArtist> userArtistId;
     private List<UsersTrack> userTrackId;
     private List<Comment> comments;
+
+    public UserDto(String username, String email, String spotifyId) {
+        this.username = username;
+        this.email = email;
+        this.spotifyId = spotifyId;
+    }
 }

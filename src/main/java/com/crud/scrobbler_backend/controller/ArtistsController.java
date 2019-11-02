@@ -18,12 +18,12 @@ public class ArtistsController {
     private ArtistMapper mapper;
 
     @GetMapping(value = "/artists/{artistId}")
-    public ArtistDto getArtist(@PathVariable long artistId) throws ArtistNotFoundException {
+    public ArtistDto getArtist(@PathVariable long artistId) throws Exception {
         return mapper.mapToArtistDto(service.getArtistById(artistId));
     }
 
     @DeleteMapping(value = "/artists/{artistId}")
-    public void deleteArtist(@PathVariable long artistsId) throws ArtistNotFoundException {
-        service.deleteArtist(artistsId);
+    public void deleteArtist(@PathVariable long artistId) throws Exception {
+        service.deleteArtist(artistId);
     }
 }

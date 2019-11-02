@@ -19,12 +19,12 @@ public class UsersArtistsController {
     private UsersArtistsMapper mapper;
 
     @GetMapping(value = "/usersArtists/{userId}")
-    public List<UsersArtistDto> getUsersArtists(@PathVariable long userId) throws UsersArtistNotFoundException {
+    public List<UsersArtistDto> getUsersArtists(@PathVariable long userId) throws Exception {
         return mapper.mapToUsersArtistDtoList(service.getAllArtists(userId));
     }
 
     @GetMapping(value = "/usersArtists")
-    public List<UsersArtistDto> getTopFive(@RequestBody long userId) throws UsersArtistNotFoundException {
+    public List<UsersArtistDto> getTopFive(@RequestBody long userId) throws Exception {
         return mapper.mapToUsersArtistDtoList(service.getTopArtists(userId));
     }
 }

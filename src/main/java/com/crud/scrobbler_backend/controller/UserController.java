@@ -17,7 +17,7 @@ public class UserController {
     private UsersMapper mapper;
 
     @GetMapping(value = "/user/{userId}")
-    public UserDto getUser(@PathVariable long userId) throws UserNotFoundException {
+    public UserDto getUser(@PathVariable long userId) throws Exception {
         return mapper.mapToUserDto(service.getUser(userId));
     }
 
@@ -27,12 +27,12 @@ public class UserController {
     }
 
     @PutMapping(value = "/user")
-    public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotFoundException {
+    public UserDto updateUser(@RequestBody UserDto userDto) throws Exception {
         return mapper.mapToUserDto(service.changeUser(mapper.mapToUser(userDto)));
     }
 
     @DeleteMapping(value = "/user/{userId}")
-    public void deleteUser(@PathVariable long userId) throws UserNotFoundException {
+    public void deleteUser(@PathVariable long userId) throws Exception {
         service.deleteUser(userId);
     }
 }

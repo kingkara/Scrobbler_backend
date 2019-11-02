@@ -12,7 +12,7 @@ public class UsersTracksMapper {
 
     public UsersTrackDto mapToUsersTrackDto(final UsersTrack usersTrack) {
         return new UsersTrackDto(usersTrack.getId(), usersTrack.getLastPlayedTime(), usersTrack.getCount(), usersTrack.isFavouriteStatus(),
-                usersTrack.getUser(), usersTrack.getTrack());
+                usersTrack.getUser(), (usersTrack.getTrack()));
     }
 
     public List<UsersTrackDto> mapToUsersTrackDtoList(final List<UsersTrack> usersTracks) {

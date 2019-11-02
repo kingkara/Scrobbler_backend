@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class SpotifyArtistsMapper {
+
     public List<SpotifyArtist> mapToSpotifyArtistList(final List<SpotifyArtistDto> spotifyArtistDtoList) {
         return spotifyArtistDtoList.stream()
                 .map(spotifyArtistDto -> new SpotifyArtist(spotifyArtistDto.getId(), spotifyArtistDto.getName()))

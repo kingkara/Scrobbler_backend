@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class CommentsMapper {
+
     public Comment mapToComment(final CommentDto commentDto) {
         return new Comment(commentDto.getText(), commentDto.getUser(), commentDto.getTrack());
     }

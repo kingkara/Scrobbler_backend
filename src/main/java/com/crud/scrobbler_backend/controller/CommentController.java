@@ -21,7 +21,7 @@ public class CommentController {
     private CommentsMapper mapper;
 
     @GetMapping(value = "/comments/{trackId}")
-    public List<CommentDto> getComments(@PathVariable long trackId) throws TrackNotFoundException {
+    public List<CommentDto> getComments(@PathVariable long trackId) throws Exception {
         return mapper.mapToCommentDtoList(service.getComments(trackId));
     }
 
@@ -31,12 +31,12 @@ public class CommentController {
     }
 
     @PutMapping(value = "/comments")
-    public CommentDto updateComment(@RequestBody CommentDto commentDto) throws CommentNotFoundException {
+    public CommentDto updateComment(@RequestBody CommentDto commentDto) throws Exception {
         return mapper.mapToCommentDto(service.editComment(commentDto.getId(), commentDto.getText()));
     }
 
     @DeleteMapping(value = "/comments/{commentId}")
-    public void deleteComment(@PathVariable long commentId) throws CommentNotFoundException {
+    public void deleteComment(@PathVariable long commentId) throws Exception {
         service.deleteComment(commentId);
     }
 }

@@ -15,4 +15,9 @@ public class ArtistDto {
     private String spotifyArtistId;
     private List<UsersArtist> usersArtists;
     private List<Track> tracks;
+
+    public ArtistDto(String name, String spotifyArtistId) {
+        this.name = name;
+        this.spotifyArtistId = spotifyArtistId;
+    }
 }

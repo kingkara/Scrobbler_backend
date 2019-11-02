@@ -19,12 +19,12 @@ public class TracksController {
     private TracksMapper mapper;
 
     @GetMapping(value = "/tracks/{trackId}")
-    public TrackDto getTrack(@PathVariable long trackId) throws TrackNotFoundException {
+    public TrackDto getTrack(@PathVariable long trackId) throws Exception {
         return mapper.mapToTrackDto(service.getTrack(trackId));
     }
 
     @DeleteMapping(value = "/tracks/{trackId}")
-    public void deleteTrack(@PathVariable long trackId) throws TrackNotFoundException {
+    public void deleteTrack(@PathVariable long trackId) throws Exception {
         service.deleteTrack(trackId);
     }
 }

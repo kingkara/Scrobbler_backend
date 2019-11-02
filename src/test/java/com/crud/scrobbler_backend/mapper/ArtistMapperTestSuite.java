@@ -21,7 +21,7 @@ class ArtistMapperTestSuite {
     @Test
     void shouldMapToArtist() {
         //Given
-        ArtistDto artistDto = new ArtistDto(1, "Test name", "Test id", new ArrayList<>(), new ArrayList<>());
+        ArtistDto artistDto = new ArtistDto("Test name", "Test id");
 
         //When
         Artist artist = artistMapper.mapToArtist(artistDto);

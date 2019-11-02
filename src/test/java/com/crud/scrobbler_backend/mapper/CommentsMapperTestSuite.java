@@ -1,9 +1,6 @@
 package com.crud.scrobbler_backend.mapper;
 
-import com.crud.scrobbler_backend.domain.Comment;
-import com.crud.scrobbler_backend.domain.CommentDto;
-import com.crud.scrobbler_backend.domain.Track;
-import com.crud.scrobbler_backend.domain.User;
+import com.crud.scrobbler_backend.domain.*;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +21,7 @@ class CommentsMapperTestSuite {
     @Test
     void shouldMapToComment() {
         //Given
-        CommentDto commentDto = new CommentDto(1, "test text", new User(), new Track());
+        CommentDto commentDto = new CommentDto( "test text", new User(), new Track());
 
         //When
         Comment comment = mapper.mapToComment(commentDto);
