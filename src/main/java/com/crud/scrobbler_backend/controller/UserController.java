@@ -1,7 +1,6 @@
 package com.crud.scrobbler_backend.controller;
 
 import com.crud.scrobbler_backend.domain.UserDto;
-import com.crud.scrobbler_backend.exceptions.UserNotFoundException;
 import com.crud.scrobbler_backend.mapper.UsersMapper;
 import com.crud.scrobbler_backend.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;

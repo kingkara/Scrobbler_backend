@@ -2,7 +2,6 @@ package com.crud.scrobbler_backend.services;
 
 import com.crud.scrobbler_backend.domain.Artist;
 import com.crud.scrobbler_backend.domain.Track;
-import com.crud.scrobbler_backend.exceptions.TrackNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ class TracksServiceTestSuite {
     private ArtistsService artistsService;
 
     @Test
-    void shouldAddTrack() throws TrackNotFoundException {
+    void shouldAddTrack() throws Exception {
         //Given
         Artist artist = new Artist("Test name", "Test id");
         artistsService.addArtist(artist);
@@ -39,10 +38,11 @@ class TracksServiceTestSuite {
 
         //CleanUp
         service.deleteTrack(id);
+        artistsService.deleteArtist(artist.getArtistId());
     }
 
     @Test
-    void shouldFindByTitle() throws TrackNotFoundException {
+    void shouldFindByTitle() throws Exception {
         //Given
         Artist artist = new Artist("Test name", "Test id");
         artistsService.addArtist(artist);
@@ -61,11 +61,12 @@ class TracksServiceTestSuite {
 
         //CleanUp
         service.deleteTrack(id);
+        artistsService.deleteArtist(artist.getArtistId());
     }
 
 
     @Test
-    void shouldGetTrack() throws TrackNotFoundException {
+    void shouldGetTrack() throws Exception {
         //Given
         Artist artist = new Artist("Test name", "Test id");
         artistsService.addArtist(artist);
@@ -83,10 +84,11 @@ class TracksServiceTestSuite {
 
         //CleanUp
         service.deleteTrack(id);
+        artistsService.deleteArtist(artist.getArtistId());
     }
 
     @Test
-    void shouldGetTracks() throws TrackNotFoundException {
+    void shouldGetTracks() throws Exception {
         //Given
         Artist artist = new Artist("Test name", "Test id");
         artistsService.addArtist(artist);
@@ -105,5 +107,6 @@ class TracksServiceTestSuite {
 
         //CleanUp
         service.deleteTrack(id);
+        artistsService.deleteArtist(artist.getArtistId());
     }
 }

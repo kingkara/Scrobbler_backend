@@ -4,7 +4,6 @@ import com.crud.scrobbler_backend.domain.User;
 import com.crud.scrobbler_backend.domain.UserDto;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class UsersMapper {
 

@@ -4,8 +4,6 @@ import com.crud.scrobbler_backend.domain.Artist;
 import com.crud.scrobbler_backend.domain.Comment;
 import com.crud.scrobbler_backend.domain.Track;
 import com.crud.scrobbler_backend.domain.User;
-import com.crud.scrobbler_backend.exceptions.CommentNotFoundException;
-import com.crud.scrobbler_backend.exceptions.TrackNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,7 @@ class CommentsServiceTestSuite {
     private ArtistsService artistsService;
 
     @Test
-    void shouldGetComments() throws TrackNotFoundException, CommentNotFoundException {
+    void shouldGetComments() throws Exception {
         //Given
         User user = new User("Test username", "Test email", "Test spotify id");
         usersService.saveUser(user);
@@ -58,10 +56,13 @@ class CommentsServiceTestSuite {
 
         //CleanUp
         service.deleteComment(id);
+        tracksService.deleteTrack(trackId);
+        artistsService.deleteArtist(artist.getArtistId());
+        usersService.deleteUser(user.getId());
     }
 
     @Test
-    void shouldAddComment() throws CommentNotFoundException {
+    void shouldAddComment() throws Exception {
         //Given
         User user = new User("Test username", "Test email", "Test spotify id");
         usersService.saveUser(user);
@@ -87,10 +88,13 @@ class CommentsServiceTestSuite {
 
         //CleanUp
         service.deleteComment(id);
+        tracksService.deleteTrack(track.getId());
+        artistsService.deleteArtist(artist.getArtistId());
+        usersService.deleteUser(user.getId());
     }
 
     @Test
-    void shouldEditComment() throws CommentNotFoundException {
+    void shouldEditComment() throws Exception {
         //Given
         User user = new User("Test username", "Test email", "Test spotify id");
         usersService.saveUser(user);
@@ -117,5 +121,8 @@ class CommentsServiceTestSuite {
 
         //CleanUp
         service.deleteComment(id);
+        tracksService.deleteTrack(track.getId());
+        artistsService.deleteArtist(artist.getArtistId());
+        usersService.deleteUser(user.getId());
     }
 }

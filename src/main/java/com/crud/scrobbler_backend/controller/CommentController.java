@@ -1,8 +1,6 @@
 package com.crud.scrobbler_backend.controller;
 
 import com.crud.scrobbler_backend.domain.CommentDto;
-import com.crud.scrobbler_backend.exceptions.CommentNotFoundException;
-import com.crud.scrobbler_backend.exceptions.TrackNotFoundException;
 import com.crud.scrobbler_backend.mapper.CommentsMapper;
 import com.crud.scrobbler_backend.services.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;

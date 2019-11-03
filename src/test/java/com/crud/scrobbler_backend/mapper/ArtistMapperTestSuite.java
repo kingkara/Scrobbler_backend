@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class ArtistMapperTestSuite {
-
     @Autowired
     private ArtistMapper artistMapper;
 

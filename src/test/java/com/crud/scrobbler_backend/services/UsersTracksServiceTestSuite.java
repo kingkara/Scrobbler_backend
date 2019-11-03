@@ -4,7 +4,6 @@ import com.crud.scrobbler_backend.domain.Artist;
 import com.crud.scrobbler_backend.domain.Track;
 import com.crud.scrobbler_backend.domain.User;
 import com.crud.scrobbler_backend.domain.UsersTrack;
-import com.crud.scrobbler_backend.exceptions.UsersTrackNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ class UsersTracksServiceTestSuite {
     private ArtistsService artistsService;
 
     @Test
-    void shouldGetAllUsersTracks() throws UsersTrackNotFoundException {
+    void shouldGetAllUsersTracks() throws Exception {
         //Given
         User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
@@ -41,7 +40,6 @@ class UsersTracksServiceTestSuite {
         usersTrack.setLastPlayedTime("test lastly played");
         service.addUsersTrack(usersTrack);
 
-        UsersTrack.UsersTrackIdBuilder id = usersTrack.getId();
         long usersId = usersTrack.getUser().getId();
 
         //When
@@ -60,11 +58,14 @@ class UsersTracksServiceTestSuite {
         assertEquals(1, usersTracks.get(elementToDelete).getCount());
 
         //CleanUp
-        service.deleteUsersTrack(id);
+        service.deleteUsersTrack(usersId, track.getId());
+        tracksService.deleteTrack(track.getId());
+        artistsService.deleteArtist(artist.getArtistId());
+        usersService.deleteUser(usersId);
     }
 
     @Test
-    void shouldGetTopTracks() throws UsersTrackNotFoundException {
+    void shouldGetTopTracks() throws Exception {
         //Given
         User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
@@ -74,25 +75,15 @@ class UsersTracksServiceTestSuite {
         artistsService.addArtist(artist);
         Track track = new Track("Test title", artist);
         tracksService.addTrack(track);
-        Artist artist2 = new Artist("Test artist name 2", "Test id 2");
-        artistsService.addArtist(artist2);
-        Track track2 = new Track("Test title 2", artist2);
+        Track track2 = new Track("Test title 2", artist);
         tracksService.addTrack(track2);
-        Artist artist3 = new Artist("Test artist name 3", "Test id 3");
-        artistsService.addArtist(artist3);
-        Track track3 = new Track("Test title 3", artist3);
+        Track track3 = new Track("Test title 3", artist);
         tracksService.addTrack(track3);
-        Artist artist4 = new Artist("Test artist name 4", "Test id 4");
-        artistsService.addArtist(artist4);
-        Track track4 = new Track("Test title 4", artist4);
+        Track track4 = new Track("Test title 4", artist);
         tracksService.addTrack(track4);
-        Artist artist5 = new Artist("Test artist name 5", "Test id 5");
-        artistsService.addArtist(artist5);
-        Track track5 = new Track("Test title 5", artist5);
+        Track track5 = new Track("Test title 5", artist);
         tracksService.addTrack(track5);
-        Artist artist6 = new Artist("Test artist name 6", "Test id 6");
-        artistsService.addArtist(artist6);
-        Track track6 = new Track("Test title 6", artist6);
+        Track track6 = new Track("Test title 6", artist);
         tracksService.addTrack(track6);
 
         UsersTrack usersTrack = new UsersTrack(user, track);
@@ -120,13 +111,6 @@ class UsersTracksServiceTestSuite {
         usersTrack6.setCount(7);
         service.addUsersTrack(usersTrack6);
 
-        UsersTrack.UsersTrackIdBuilder id1 = usersTrack.getId();
-        UsersTrack.UsersTrackIdBuilder id2 = usersTrack2.getId();
-        UsersTrack.UsersTrackIdBuilder id3 = usersTrack3.getId();
-        UsersTrack.UsersTrackIdBuilder id4 = usersTrack4.getId();
-        UsersTrack.UsersTrackIdBuilder id5 = usersTrack5.getId();
-        UsersTrack.UsersTrackIdBuilder id6 = usersTrack6.getId();
-
         //When
         List<UsersTrack> usersTopTracks = service.getTopTracks(usersId);
 
@@ -137,8 +121,8 @@ class UsersTracksServiceTestSuite {
         assertEquals("test email", usersTopTracks.get(0).getUser().getEmail());
         assertEquals("test spotify id", usersTopTracks.get(0).getUser().getSpotifyId());
         assertEquals("Test title 6", usersTopTracks.get(0).getTrack().getTitle());
-        assertEquals("Test artist name 6", usersTopTracks.get(0).getTrack().getArtist().getName());
-        assertEquals("Test id 6", usersTopTracks.get(0).getTrack().getArtist().getSpotifyArtistId());
+        assertEquals("Test artist name", usersTopTracks.get(0).getTrack().getArtist().getName());
+        assertEquals("Test id", usersTopTracks.get(0).getTrack().getArtist().getSpotifyArtistId());
         assertEquals("test lastly played 6", usersTopTracks.get(0).getLastPlayedTime());
         assertFalse(usersTopTracks.get(0).isFavouriteStatus());
         assertEquals(6, usersTopTracks.get(1).getCount());
@@ -146,8 +130,8 @@ class UsersTracksServiceTestSuite {
         assertEquals("test email", usersTopTracks.get(1).getUser().getEmail());
         assertEquals("test spotify id", usersTopTracks.get(1).getUser().getSpotifyId());
         assertEquals("Test title 5", usersTopTracks.get(1).getTrack().getTitle());
-        assertEquals("Test artist name 5", usersTopTracks.get(1).getTrack().getArtist().getName());
-        assertEquals("Test id 5", usersTopTracks.get(1).getTrack().getArtist().getSpotifyArtistId());
+        assertEquals("Test artist name", usersTopTracks.get(1).getTrack().getArtist().getName());
+        assertEquals("Test id", usersTopTracks.get(1).getTrack().getArtist().getSpotifyArtistId());
         assertEquals("test lastly played 5", usersTopTracks.get(1).getLastPlayedTime());
         assertFalse(usersTopTracks.get(0).isFavouriteStatus());
         assertEquals(5, usersTopTracks.get(2).getCount());
@@ -155,8 +139,8 @@ class UsersTracksServiceTestSuite {
         assertEquals("test email", usersTopTracks.get(2).getUser().getEmail());
         assertEquals("test spotify id", usersTopTracks.get(2).getUser().getSpotifyId());
         assertEquals("Test title 4", usersTopTracks.get(2).getTrack().getTitle());
-        assertEquals("Test artist name 4", usersTopTracks.get(2).getTrack().getArtist().getName());
-        assertEquals("Test id 4", usersTopTracks.get(2).getTrack().getArtist().getSpotifyArtistId());
+        assertEquals("Test artist name", usersTopTracks.get(2).getTrack().getArtist().getName());
+        assertEquals("Test id", usersTopTracks.get(2).getTrack().getArtist().getSpotifyArtistId());
         assertEquals("test lastly played 4", usersTopTracks.get(2).getLastPlayedTime());
         assertFalse(usersTopTracks.get(0).isFavouriteStatus());
         assertEquals(4, usersTopTracks.get(3).getCount());
@@ -164,8 +148,8 @@ class UsersTracksServiceTestSuite {
         assertEquals("test email", usersTopTracks.get(3).getUser().getEmail());
         assertEquals("test spotify id", usersTopTracks.get(3).getUser().getSpotifyId());
         assertEquals("Test title 3", usersTopTracks.get(3).getTrack().getTitle());
-        assertEquals("Test artist name 3", usersTopTracks.get(3).getTrack().getArtist().getName());
-        assertEquals("Test id 3", usersTopTracks.get(3).getTrack().getArtist().getSpotifyArtistId());
+        assertEquals("Test artist name", usersTopTracks.get(3).getTrack().getArtist().getName());
+        assertEquals("Test id", usersTopTracks.get(3).getTrack().getArtist().getSpotifyArtistId());
         assertEquals("test lastly played 3", usersTopTracks.get(3).getLastPlayedTime());
         assertFalse(usersTopTracks.get(0).isFavouriteStatus());
         assertEquals(3, usersTopTracks.get(4).getCount());
@@ -173,22 +157,30 @@ class UsersTracksServiceTestSuite {
         assertEquals("test email", usersTopTracks.get(4).getUser().getEmail());
         assertEquals("test spotify id", usersTopTracks.get(4).getUser().getSpotifyId());
         assertEquals("Test title 2", usersTopTracks.get(4).getTrack().getTitle());
-        assertEquals("Test artist name 2", usersTopTracks.get(4).getTrack().getArtist().getName());
-        assertEquals("Test id 2", usersTopTracks.get(4).getTrack().getArtist().getSpotifyArtistId());
+        assertEquals("Test artist name", usersTopTracks.get(4).getTrack().getArtist().getName());
+        assertEquals("Test id", usersTopTracks.get(4).getTrack().getArtist().getSpotifyArtistId());
         assertEquals("test lastly played 2", usersTopTracks.get(4).getLastPlayedTime());
         assertFalse(usersTopTracks.get(0).isFavouriteStatus());
 
         //CleanUp
-        service.deleteUsersTrack(id1);
-        service.deleteUsersTrack(id2);
-        service.deleteUsersTrack(id3);
-        service.deleteUsersTrack(id4);
-        service.deleteUsersTrack(id5);
-        service.deleteUsersTrack(id6);
+        service.deleteUsersTrack(usersId, track.getId());
+        service.deleteUsersTrack(usersId, track2.getId());
+        service.deleteUsersTrack(usersId, track3.getId());
+        service.deleteUsersTrack(usersId, track4.getId());
+        service.deleteUsersTrack(usersId, track5.getId());
+        service.deleteUsersTrack(usersId, track6.getId());
+        tracksService.deleteTrack(track.getId());
+        tracksService.deleteTrack(track2.getId());
+        tracksService.deleteTrack(track3.getId());
+        tracksService.deleteTrack(track4.getId());
+        tracksService.deleteTrack(track5.getId());
+        tracksService.deleteTrack(track6.getId());
+        artistsService.deleteArtist(artist.getArtistId());
+        usersService.deleteUser(usersId);
     }
 
     @Test
-    void shouldChangeFavouriteStatus() {
+    void shouldChangeFavouriteStatus() throws Exception {
         //Given
         User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
@@ -201,10 +193,8 @@ class UsersTracksServiceTestSuite {
         usersTrack.setLastPlayedTime("test lastly played");
         service.addUsersTrack(usersTrack);
 
-        UsersTrack.UsersTrackIdBuilder id = usersTrack.getId();
-
         //When
-        UsersTrack usersFavourite = service.changeFavouriteStatus(id);
+        UsersTrack usersFavourite = service.changeFavouriteStatus(user.getId(), track.getId());
 
         //Then
         assertEquals("test name", usersFavourite.getUser().getUsername());
@@ -218,11 +208,14 @@ class UsersTracksServiceTestSuite {
         assertTrue(usersFavourite.isFavouriteStatus());
 
         //CleanUp
-        service.deleteUsersTrack(id);
+        service.deleteUsersTrack(user.getId(), track.getId());
+        tracksService.deleteTrack(track.getId());
+        artistsService.deleteArtist(artist.getArtistId());
+        usersService.deleteUser(user.getId());
     }
 
     @Test
-    void shouldGetFavourites() throws UsersTrackNotFoundException {
+    void shouldGetFavourites() throws Exception {
         //Given
         User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
@@ -232,9 +225,7 @@ class UsersTracksServiceTestSuite {
         artistsService.addArtist(artist);
         Track track = new Track("Test title", artist);
         tracksService.addTrack(track);
-        Artist artist2 = new Artist("Test artist name 2", "Test id 2");
-        artistsService.addArtist(artist2);
-        Track track2 = new Track("Test title 2", artist2);
+        Track track2 = new Track("Test title 2", artist);
         tracksService.addTrack(track2);
 
         UsersTrack usersTrack = new UsersTrack(user, track);
@@ -244,9 +235,7 @@ class UsersTracksServiceTestSuite {
         usersTrack2.setLastPlayedTime("test lastly played 2");
         service.addUsersTrack(usersTrack2);
 
-        UsersTrack.UsersTrackIdBuilder id1 = usersTrack.getId();
-        UsersTrack.UsersTrackIdBuilder id2 = usersTrack2.getId();
-        service.changeFavouriteStatus(id2);
+        service.changeFavouriteStatus(usersId, track2.getId());
 
         //When
         List<UsersTrack> usersFav = service.getFavourites(usersId);
@@ -257,19 +246,23 @@ class UsersTracksServiceTestSuite {
         assertEquals("test email", usersFav.get(0).getUser().getEmail());
         assertEquals("test spotify id", usersFav.get(0).getUser().getSpotifyId());
         assertEquals("Test title 2", usersFav.get(0).getTrack().getTitle());
-        assertEquals("Test artist name 2", usersFav.get(0).getTrack().getArtist().getName());
-        assertEquals("Test id 2", usersFav.get(0).getTrack().getArtist().getSpotifyArtistId());
+        assertEquals("Test artist name", usersFav.get(0).getTrack().getArtist().getName());
+        assertEquals("Test id", usersFav.get(0).getTrack().getArtist().getSpotifyArtistId());
         assertEquals("test lastly played 2", usersFav.get(0).getLastPlayedTime());
         assertEquals(1, usersFav.get(0).getCount());
         assertTrue(usersFav.get(0).isFavouriteStatus());
 
         //CleanUp
-        service.deleteUsersTrack(id1);
-        service.deleteUsersTrack(id2);
+        service.deleteUsersTrack(usersId, track.getId());
+        service.deleteUsersTrack(usersId, track2.getId());
+        tracksService.deleteTrack(track.getId());
+        tracksService.deleteTrack(track2.getId());
+        artistsService.deleteArtist(artist.getArtistId());
+        usersService.deleteUser(usersId);
     }
 
     @Test
-    void shouldGetByUserAndTrackId() {
+    void shouldGetByUserAndTrackId() throws Exception {
         //Given
         User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
@@ -283,7 +276,6 @@ class UsersTracksServiceTestSuite {
         UsersTrack usersTrack = new UsersTrack(user, track);
         usersTrack.setLastPlayedTime("test lastly played");
         service.addUsersTrack(usersTrack);
-        UsersTrack.UsersTrackIdBuilder id = usersTrack.getId();
 
         //When
         UsersTrack usersTrackFromDb = service.getByUserAndTrackId(userId, trackId);
@@ -300,11 +292,14 @@ class UsersTracksServiceTestSuite {
         assertFalse(usersTrackFromDb.isFavouriteStatus());
 
         //CleanUp
-        service.deleteUsersTrack(id);
+        service.deleteUsersTrack(user.getId(), track.getId());
+        tracksService.deleteTrack(trackId);
+        artistsService.deleteArtist(artist.getArtistId());
+        usersService.deleteUser(userId);
     }
 
     @Test
-    void updateCountAndLastlyPlayed() {
+    void updateCountAndLastlyPlayed() throws Exception {
         //Given
         User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
@@ -333,6 +328,9 @@ class UsersTracksServiceTestSuite {
         assertFalse(updatedUsersTrack.isFavouriteStatus());
 
         //CleanUp
-        service.deleteUsersTrack(id);
+        service.deleteUsersTrack(user.getId(), track.getId());
+        tracksService.deleteTrack(track.getId());
+        artistsService.deleteArtist(artist.getArtistId());
+        usersService.deleteUser(user.getId());
     }
 }

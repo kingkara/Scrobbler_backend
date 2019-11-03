@@ -3,7 +3,6 @@ package com.crud.scrobbler_backend.services;
 import com.crud.scrobbler_backend.domain.Artist;
 import com.crud.scrobbler_backend.domain.User;
 import com.crud.scrobbler_backend.domain.UsersArtist;
-import com.crud.scrobbler_backend.exceptions.UsersArtistNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ class UsersArtistsServiceTestSuite {
     private ArtistsService artistsService;
 
     @Test
-    void shouldGetAllArtists() throws UsersArtistNotFoundException {
+    void shouldGetAllArtists() throws Exception {
         //Given
         User user = new User("test name", "test email", "test spotify id");
         Artist artist = new Artist("test artist name", "test artist id");
@@ -36,7 +35,6 @@ class UsersArtistsServiceTestSuite {
         usersArtist.setLastPlayedTime("test lastly played at");
         service.addUsersArtist(usersArtist);
         long userId = usersArtist.getUser().getId();
-        UsersArtist.UsersArtistIdBuilder id = usersArtist.getId();
 
         //When
         List<UsersArtist> usersArtists = service.getAllArtists(userId);
@@ -52,11 +50,13 @@ class UsersArtistsServiceTestSuite {
         assertEquals(1, usersArtists.get(usersArtistsRow).getCount());
 
         //CleanUp
-        service.deleteUsersArtist(id);
+        service.deleteUsersArtist(artist.getArtistId(), userId);
+        artistsService.deleteArtist(artist.getArtistId());
+        usersService.deleteUser(userId);
     }
 
     @Test
-    void shouldGetTopArtists() throws UsersArtistNotFoundException {
+    void shouldGetTopArtists() throws Exception {
         //Given
         User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
@@ -100,13 +100,6 @@ class UsersArtistsServiceTestSuite {
         usersArtist6.setCount(7);
         service.addUsersArtist(usersArtist6);
 
-        UsersArtist.UsersArtistIdBuilder id1 = usersArtist.getId();
-        UsersArtist.UsersArtistIdBuilder id2 = usersArtist2.getId();
-        UsersArtist.UsersArtistIdBuilder id3 = usersArtist3.getId();
-        UsersArtist.UsersArtistIdBuilder id4 = usersArtist4.getId();
-        UsersArtist.UsersArtistIdBuilder id5 = usersArtist5.getId();
-        UsersArtist.UsersArtistIdBuilder id6 = usersArtist6.getId();
-
         //When
         List<UsersArtist> usersArtists = service.getTopArtists(usersId);
 
@@ -132,16 +125,23 @@ class UsersArtistsServiceTestSuite {
         assertEquals(3, usersArtists.get(4).getCount());
 
         //CleanUp
-        service.deleteUsersArtist(id1);
-        service.deleteUsersArtist(id2);
-        service.deleteUsersArtist(id3);
-        service.deleteUsersArtist(id4);
-        service.deleteUsersArtist(id5);
-        service.deleteUsersArtist(id6);
+        service.deleteUsersArtist(artist.getArtistId(), usersId);
+        service.deleteUsersArtist(artist2.getArtistId(), usersId);
+        service.deleteUsersArtist(artist3.getArtistId(), usersId);
+        service.deleteUsersArtist(artist4.getArtistId(), usersId);
+        service.deleteUsersArtist(artist5.getArtistId(), usersId);
+        service.deleteUsersArtist(artist6.getArtistId(), usersId);
+        artistsService.deleteArtist(artist.getArtistId());
+        artistsService.deleteArtist(artist2.getArtistId());
+        artistsService.deleteArtist(artist3.getArtistId());
+        artistsService.deleteArtist(artist4.getArtistId());
+        artistsService.deleteArtist(artist5.getArtistId());
+        artistsService.deleteArtist(artist6.getArtistId());
+        usersService.deleteUser(usersId);
     }
 
     @Test
-    void shouldGetByUserAndArtistsId() throws UsersArtistNotFoundException {
+    void shouldGetByUserAndArtistsId() throws Exception {
         //Given
         User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
@@ -169,11 +169,13 @@ class UsersArtistsServiceTestSuite {
         assertEquals(1, usersArtistFromDb.getCount());
 
         //CleanUp
-        service.deleteUsersArtist(id);
+        service.deleteUsersArtist(artistId, usersId);
+        artistsService.deleteArtist(artistId);
+        usersService.deleteUser(usersId);
     }
 
     @Test
-    void updateCount() throws UsersArtistNotFoundException {
+    void updateCount() throws Exception {
         //Given
         User user = new User("test name", "test email", "test spotify id");
         usersService.saveUser(user);
@@ -204,6 +206,8 @@ class UsersArtistsServiceTestSuite {
         assertEquals(10, usersArtistSaved.getCount());
 
         //CleanUp
-        service.deleteUsersArtist(id);
+        service.deleteUsersArtist(artistId, usersId);
+        artistsService.deleteArtist(artistId);
+        usersService.deleteUser(usersId);
     }
 }

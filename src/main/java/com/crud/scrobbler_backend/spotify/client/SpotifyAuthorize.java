@@ -8,7 +8,7 @@ import com.wrapper.spotify.requests.authorization.authorization_code.Authorizati
 import java.io.IOException;
 
 public class SpotifyAuthorize {
-    private static String clientId = "9ef734f0814d492689a03de00a67523e";
+     private static String clientId = "9ef734f0814d492689a03de00a67523e";
     private static String clientSecret = "903ee87339a3479dac8f1b08f1251c76";
     private static String refreshToken = "AQBZNR8HFduQkg0MWj6JebexUc2P9NrKLA5gXDDEkAw8aPO4McKaLlINL_a3SqqYpevFH437X1cg3qnPhcf1RJzoWG_YYMLt3j5RoBffcko5t9M2oShggm90PsGq8q_wKrdc_g";
 

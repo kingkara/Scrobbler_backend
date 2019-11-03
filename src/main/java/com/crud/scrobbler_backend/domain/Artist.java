@@ -1,5 +1,6 @@
 package com.crud.scrobbler_backend.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
@@ -25,24 +27,16 @@ public class Artist {
     protected long artistId;
 
     @Setter
-    @Column(name = "NAME")
+    @Column(name = "NAME", unique = true)
     private String name;
 
     @Setter
-    @Column(name = "SPOTIFY_ARTIST_ID")
+    @Column(name = "SPOTIFY_ARTIST_ID", unique = true)
     private String spotifyArtistId;
 
-    @OneToMany(targetEntity = UsersArtist.class,
-            mappedBy = "artist",
-            cascade = CascadeType.PERSIST,
-            fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "artist")
     private List<UsersArtist> usersArtist = new ArrayList<>();
 
-    @OneToMany(
-            targetEntity = Track.class,
-            mappedBy = "artist",
-            cascade = CascadeType.PERSIST,
-            fetch = FetchType.EAGER
-    )
+    @OneToMany(mappedBy = "artist")
     private List<Track> tracks = new ArrayList<>();
 }

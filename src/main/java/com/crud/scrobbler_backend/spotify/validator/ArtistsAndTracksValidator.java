@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class ArtistsAndTracksValidator {
@@ -19,36 +18,29 @@ public class ArtistsAndTracksValidator {
     @Autowired
     private TracksService tracksService;
 
-    private List<Artist> validateArtist(List<SpotifyArtistDto> spotifyArtistDto) {
-        List<Artist> newArtists = spotifyArtistDto.stream()
-                .map(artist -> new Artist(artist.getName(), artist.getId()))
-                .collect(Collectors.toList());
-
-        List<Artist> artistToCheck = new ArrayList<>();
-        for (Artist artistToValidate : newArtists) {
-            System.out.println(artistToValidate.getName());
-            if (artistToValidate.equals(artistsService.getArtistByName(artistToValidate.getName()))) {
-                artistToCheck.add(artistToValidate);
+    public List<Artist> validateArtist(List<SpotifyArtistDto> spotifyArtistDto) {
+        List<Artist> newArtists = new ArrayList<>();
+        for (SpotifyArtistDto artistToValidate : spotifyArtistDto) {
+            Artist artistFromDb = artistsService.getArtistByName(artistToValidate.getName());
+            if (artistFromDb == null) {
+                Artist newArtist = new Artist(artistToValidate.getName(), artistToValidate.getId());
+                artistsService.addArtist(newArtist);
+                newArtists.add(newArtist);
             }
-        }
-
-        if (artistToCheck.size() != 0) {
-            for (Artist artist : newArtists) {
-                for (Artist artistToDelete : artistToCheck) {
-                    if (artist.equals(artistToDelete)) {
-                        newArtists.remove(artist);
-                    }
-                }
-            }
-        }
-        for (Artist artist : newArtists) {
-            artistsService.addArtist(artist);
         }
         return newArtists;
     }
 
     public Track validateTrack(SpotifyFullTrack spotifyFullTrack) {
-        Track newTrack = new Track(spotifyFullTrack.getSpotifyTrackDto().getTitle(), validateArtist(spotifyFullTrack.getSpotifyTrackDto().getSpotifyArtistDto()).get(0));
+        List<Artist> validatedArtists = validateArtist(spotifyFullTrack.getSpotifyTrackDto().getSpotifyArtistDto());
+        Artist artistToConstructor;
+        if (validatedArtists.size() == 0) {
+            artistToConstructor = artistsService.getArtistByName(spotifyFullTrack.getSpotifyTrackDto().getSpotifyArtistDto().get(0).getName());
+        } else {
+            artistToConstructor = validatedArtists.get(0);
+        }
+
+        Track newTrack = new Track(spotifyFullTrack.getSpotifyTrackDto().getTitle(), artistToConstructor);
         Track trackToCheck = tracksService.findByTitle(newTrack.getTitle());
         if (trackToCheck != null) {
             return trackToCheck;

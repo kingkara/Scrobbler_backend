@@ -15,7 +15,7 @@ public interface UsersTracksRepository extends CrudRepository<UsersTrack, Long> 
 
     List<UsersTrack> findAllByUser_IdAndFavouriteStatus(long userId, boolean status) throws UsersTrackNotFoundException;
 
-    UsersTrack findUsersTrackByUser_IdAndTrack_Id(long userId, long trackId);
+    UsersTrack findByUser_IdAndTrack_Id(long userId, long trackId);
 
     UsersTrack findById(UsersTrack.UsersTrackIdBuilder id);
 

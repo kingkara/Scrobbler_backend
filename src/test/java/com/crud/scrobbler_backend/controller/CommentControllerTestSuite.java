@@ -32,10 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CommentControllerTestSuite {
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private CommentsMapper mapper;
-
     @MockBean
     private CommentsService service;
 

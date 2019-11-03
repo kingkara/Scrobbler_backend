@@ -19,7 +19,7 @@ class UsersMapperTestSuite {
     @Test
     void shouldMapToUser() {
         //Given
-        UserDto userDto = new UserDto( "Test username", "Test email", "Test spotify id");
+        UserDto userDto = new UserDto("Test username", "Test email", "Test spotify id");
 
         //When
         User user = mapper.mapToUser(userDto);

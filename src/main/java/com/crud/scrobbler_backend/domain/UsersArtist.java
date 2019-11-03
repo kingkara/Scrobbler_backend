@@ -38,6 +38,11 @@ public class UsersArtist {
         public int hashCode() {
             return userId.hashCode() + artistId.hashCode();
         }
+
+        @Override
+        public String toString() {
+            return userId.toString() + artistId.toString();
+        }
     }
 
     public UsersArtist(User user, Artist artist) {

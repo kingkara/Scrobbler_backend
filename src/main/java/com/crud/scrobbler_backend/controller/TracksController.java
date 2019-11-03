@@ -1,7 +1,6 @@
 package com.crud.scrobbler_backend.controller;
 
 import com.crud.scrobbler_backend.domain.TrackDto;
-import com.crud.scrobbler_backend.exceptions.TrackNotFoundException;
 import com.crud.scrobbler_backend.mapper.TracksMapper;
 import com.crud.scrobbler_backend.services.TracksService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +20,5 @@ public class TracksController {
     @GetMapping(value = "/tracks/{trackId}")
     public TrackDto getTrack(@PathVariable long trackId) throws Exception {
         return mapper.mapToTrackDto(service.getTrack(trackId));
-    }
-
-    @DeleteMapping(value = "/tracks/{trackId}")
-    public void deleteTrack(@PathVariable long trackId) throws Exception {
-        service.deleteTrack(trackId);
     }
 }

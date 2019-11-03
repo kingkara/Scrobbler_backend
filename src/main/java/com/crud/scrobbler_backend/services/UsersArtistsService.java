@@ -39,8 +39,8 @@ public class UsersArtistsService {
         }
     }
 
-    public void deleteUsersArtist(final UsersArtist.UsersArtistIdBuilder id) throws UsersArtistNotFoundException {
-        UsersArtist usersArtist = repository.findById(id);
+    public void deleteUsersArtist(final long artistId, final long userId) {
+        UsersArtist usersArtist = repository.getUsersArtistByUserIdAndArtist_ArtistId(userId, artistId);
         repository.delete(usersArtist);
     }
 }

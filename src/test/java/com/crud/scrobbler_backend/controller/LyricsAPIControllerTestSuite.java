@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class LyricsAPIControllerTestSuite {
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private LyricsApiService service;
 

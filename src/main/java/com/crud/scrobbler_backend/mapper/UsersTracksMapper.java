@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 @Component
 public class UsersTracksMapper {
 
+    public UsersTrack mapToUsersTrack(final UsersTrackDto usersTrackDto) {
+        return new UsersTrack(usersTrackDto.getUser(), usersTrackDto.getTrack());
+    }
+
     public UsersTrackDto mapToUsersTrackDto(final UsersTrack usersTrack) {
         return new UsersTrackDto(usersTrack.getId(), usersTrack.getLastPlayedTime(), usersTrack.getCount(), usersTrack.isFavouriteStatus(),
                 usersTrack.getUser(), (usersTrack.getTrack()));

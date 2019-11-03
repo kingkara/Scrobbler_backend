@@ -21,8 +21,8 @@ public class UsersTracksService {
         return repository.findAllByUser_IdOrderByCountDesc(userId).subList(0, 5);
     }
 
-    public UsersTrack changeFavouriteStatus(final UsersTrack.UsersTrackIdBuilder id) {
-        UsersTrack trackToUpdate = repository.findById(id);
+    public UsersTrack changeFavouriteStatus(final long userId, final long trackId) {
+        UsersTrack trackToUpdate = repository.findByUser_IdAndTrack_Id(userId, trackId);
         if (trackToUpdate.isFavouriteStatus()) {
             trackToUpdate.setFavouriteStatus(false);
         }
@@ -35,11 +35,11 @@ public class UsersTracksService {
     }
 
     public UsersTrack getByUserAndTrackId(final long userId, final long trackId) {
-        return repository.findUsersTrackByUser_IdAndTrack_Id(userId, trackId);
+        return repository.findByUser_IdAndTrack_Id(userId, trackId);
     }
 
-    public void addUsersTrack(final UsersTrack usersTrack) {
-        repository.save(usersTrack);
+    public UsersTrack addUsersTrack(final UsersTrack usersTrack) {
+        return repository.save(usersTrack);
     }
 
     public UsersTrack updateCountAndLastlyPlayed(final UsersTrack.UsersTrackIdBuilder id, final String thisTimePlayed) {
@@ -53,8 +53,8 @@ public class UsersTracksService {
         return trackToUpdate;
     }
 
-    public void deleteUsersTrack(final UsersTrack.UsersTrackIdBuilder id) {
-        UsersTrack usersTrackToDelete = repository.findById(id);
+    public void deleteUsersTrack(final long userId, long trackId) {
+        UsersTrack usersTrackToDelete = repository.findByUser_IdAndTrack_Id(userId, trackId);
         repository.delete(usersTrackToDelete);
     }
 }

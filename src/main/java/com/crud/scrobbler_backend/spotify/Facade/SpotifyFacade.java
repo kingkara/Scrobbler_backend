@@ -1,4 +1,4 @@
-package com.crud.scrobbler_backend.spotify.saveToDatabase;
+package com.crud.scrobbler_backend.spotify.Facade;
 
 import com.crud.scrobbler_backend.domain.*;
 import com.crud.scrobbler_backend.domain.spotify.SpotifyFullTrack;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class Saver {
+public class SpotifyFacade {
     @Value("${spotify.app.user.id}")
     private String clientId;
     @Autowired

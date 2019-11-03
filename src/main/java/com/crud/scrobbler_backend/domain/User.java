@@ -1,5 +1,6 @@
 package com.crud.scrobbler_backend.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "USERS")
@@ -26,7 +28,7 @@ public class User {
     protected long id;
 
     @Setter
-    @Column(name = "USERNAME")
+    @Column(name = "USERNAME", unique = true)
     private String username;
 
     @Setter
@@ -34,27 +36,15 @@ public class User {
     private String email;
 
     @Setter
-    @Column(name = "SPOTIFY_USER_ID")
+    @Column(name = "SPOTIFY_USER_ID", unique = true)
     private String spotifyId;
 
-    @OneToMany(targetEntity = UsersArtist.class,
-            mappedBy = "user",
-            cascade = CascadeType.PERSIST,
-            fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     private List<UsersArtist> usersArtists = new ArrayList<>();
 
-    @OneToMany(
-            targetEntity = UsersTrack.class,
-            mappedBy = "user",
-            cascade = CascadeType.PERSIST,
-            fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     private List<UsersTrack> usersTracks = new ArrayList<>();
 
-    @OneToMany(
-            targetEntity = Comment.class,
-            mappedBy = "user",
-            cascade = CascadeType.PERSIST,
-            fetch = FetchType.EAGER
-    )
+    @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
 }

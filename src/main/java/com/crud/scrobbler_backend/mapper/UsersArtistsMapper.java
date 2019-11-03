@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 @Component
 public class UsersArtistsMapper {
 
+    public UsersArtist mapToUsersArtist(final UsersArtistDto usersArtist) {
+        return new UsersArtist(usersArtist.getUser(), usersArtist.getArtist());
+    }
+
     public List<UsersArtistDto> mapToUsersArtistDtoList(final List<UsersArtist> usersArtists) {
         return usersArtists.stream()
                 .map(usersArtist -> new UsersArtistDto(usersArtist.getId(), usersArtist.getCount(), usersArtist.getLastPlayedTime(),

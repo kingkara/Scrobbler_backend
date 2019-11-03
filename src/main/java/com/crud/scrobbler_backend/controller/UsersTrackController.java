@@ -1,8 +1,6 @@
 package com.crud.scrobbler_backend.controller;
 
-import com.crud.scrobbler_backend.domain.UsersTrack;
 import com.crud.scrobbler_backend.domain.UsersTrackDto;
-import com.crud.scrobbler_backend.exceptions.UsersTrackNotFoundException;
 import com.crud.scrobbler_backend.mapper.UsersTracksMapper;
 import com.crud.scrobbler_backend.services.UsersTracksService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +27,18 @@ public class UsersTrackController {
         return mapper.mapToUsersTrackDtoList(service.getFavourites(userId));
     }
 
-    @PutMapping(value = "/usersTracks/{usersTrackId}")
-    public UsersTrackDto changeFavouriteStatus(@PathVariable UsersTrack.UsersTrackIdBuilder usersTrackId) {
-        return mapper.mapToUsersTrackDto(service.changeFavouriteStatus(usersTrackId));
+    @PutMapping(value = "/usersTracks/{userId}/{trackId}")
+    public UsersTrackDto changeFavouriteStatus(@PathVariable long userId, @PathVariable long trackId) {
+        return mapper.mapToUsersTrackDto(service.changeFavouriteStatus(userId, trackId));
     }
 
-    @GetMapping(value = "/usersTrack/top/{userId}")
+    @GetMapping(value = "/usersTracks/top/{userId}")
     public List<UsersTrackDto> getTopUsersTracks(@PathVariable long userId) throws Exception {
         return mapper.mapToUsersTrackDtoList(service.getTopTracks(userId));
+    }
+
+    @DeleteMapping(value = "/usersTracks/{userId}/{trackId}")
+    public void deleteTrack(@PathVariable long userId, @PathVariable long trackId) {
+        service.deleteUsersTrack(userId, trackId);
     }
 }

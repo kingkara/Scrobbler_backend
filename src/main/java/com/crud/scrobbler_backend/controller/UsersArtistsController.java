@@ -1,7 +1,6 @@
 package com.crud.scrobbler_backend.controller;
 
 import com.crud.scrobbler_backend.domain.UsersArtistDto;
-import com.crud.scrobbler_backend.exceptions.UsersArtistNotFoundException;
 import com.crud.scrobbler_backend.mapper.UsersArtistsMapper;
 import com.crud.scrobbler_backend.services.UsersArtistsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +25,10 @@ public class UsersArtistsController {
     @GetMapping(value = "/usersArtists")
     public List<UsersArtistDto> getTopFive(@RequestBody long userId) throws Exception {
         return mapper.mapToUsersArtistDtoList(service.getTopArtists(userId));
+    }
+
+    @DeleteMapping(value = "/usersArtists/{artistId}/{userId}")
+    public void deleteArtist(@PathVariable long artistId, @PathVariable long userId) {
+        service.deleteUsersArtist(userId, artistId);
     }
 }
