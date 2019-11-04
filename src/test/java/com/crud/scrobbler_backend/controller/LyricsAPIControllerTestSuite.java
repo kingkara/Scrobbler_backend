@@ -1,7 +1,7 @@
 package com.crud.scrobbler_backend.controller;
 
 import com.crud.scrobbler_backend.domain.Artist;
-import com.crud.scrobbler_backend.domain.LyricsDto;
+import com.crud.scrobbler_backend.domain.lyricsApi.LyricsDto;
 import com.crud.scrobbler_backend.domain.Track;
 import com.crud.scrobbler_backend.services.LyricsApiService;
 import com.google.gson.Gson;

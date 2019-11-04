@@ -1,6 +1,6 @@
 package com.crud.scrobbler_backend.lyrics.client;
 
-import com.crud.scrobbler_backend.domain.LyricsDto;
+import com.crud.scrobbler_backend.domain.lyricsApi.LyricsDto;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

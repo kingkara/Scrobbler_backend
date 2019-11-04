@@ -49,8 +49,8 @@ public class UsersTrack {
         this.count = 1;
         this.favouriteStatus = false;
 
-        user.getUsersTracks().add(this);
-        track.getUsersTracks().add(this);
+//        user.getUsersTracks().add(this);
+//        track.getUsersTracks().add(this);
     }
 
     @EmbeddedId

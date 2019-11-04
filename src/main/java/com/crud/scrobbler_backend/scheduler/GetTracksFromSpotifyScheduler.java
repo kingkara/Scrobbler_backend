@@ -1,5 +1,6 @@
 package com.crud.scrobbler_backend.scheduler;
 
+import com.crud.scrobbler_backend.services.LyricsApiService;
 import com.crud.scrobbler_backend.services.SpotifyService;
 import com.crud.scrobbler_backend.spotify.Facade.SpotifyFacade;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,10 +16,12 @@ public class GetTracksFromSpotifyScheduler {
     private SpotifyFacade spotifyFacade;
     @Autowired
     private SpotifyService service;
+    @Autowired
+    private LyricsApiService lyricsApiService;
 
-    @Scheduled(cron = "0 0/2 * * * ?")
-    public void getTracksFromSpotify() throws JsonProcessingException {
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void getTracksFromSpotify() throws Exception {
         spotifyFacade.saveUsersTracksAndArtists();
-        service.getCurrentPlaying();
+        System.out.println(lyricsApiService.getLyrics(service.getCurrentPlaying().getArtistDtos().get(0).getName(), service.getCurrentPlaying().getTitle()).getLyrics());
     }
 }

@@ -51,14 +51,14 @@ public class UsersArtist {
         this.id.userId = user.getId();
         this.id.artistId = artist.getArtistId();
         this.count = 1;
-
-        user.getUsersArtists().add(this);
-        artist.getUsersArtist().add(this);
+//
+//        user.getUsersArtists().add(this);
+//        artist.getUsersArtist().add(this);
     }
 
     @EmbeddedId
     @Column(name = "USERS_ARTIST_ID", unique = true)
-    protected UsersArtistIdBuilder id = new UsersArtistIdBuilder();
+    private UsersArtistIdBuilder id = new UsersArtistIdBuilder();
 
     @Setter
     @Column(name = "COUNT")
@@ -72,9 +72,9 @@ public class UsersArtist {
 
     @ManyToOne
     @JoinColumn(name = "USER_ID", insertable = false, updatable = false)
-    protected User user;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "ARTIST_ID", insertable = false, updatable = false)
-    protected Artist artist;
+    private Artist artist;
 }

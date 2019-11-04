@@ -37,7 +37,6 @@ public class SpotifyFacade {
         lastlyPlayed.forEach(track -> {
             try {
                 Track validatedTrack = artistsAndTracksValidator.validateTrack(track);
-                System.out.println("Validated:" + validatedTrack.getArtist().getName());
                 User user = usersService.getUserBySpotifyId(clientId);
                 usersArtistsAndTracksValidator.validateUsersArtist(user, validatedTrack.getArtist(), track.getPlayedAt());
                 usersArtistsAndTracksValidator.validateUsersTrack(user, validatedTrack, track.getPlayedAt());

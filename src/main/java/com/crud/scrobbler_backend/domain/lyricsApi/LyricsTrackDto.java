@@ -1,4 +1,4 @@
-package com.crud.scrobbler_backend.domain;
+package com.crud.scrobbler_backend.domain.lyricsApi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LyricsDto {
-    @JsonProperty("track.text")
-    private String lyrics;
+public class LyricsTrackDto {
+    @JsonProperty("track")
+    private LyricsDto trackWithLyrics;
 }

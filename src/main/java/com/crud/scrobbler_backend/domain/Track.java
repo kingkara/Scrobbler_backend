@@ -1,5 +1,7 @@
 package com.crud.scrobbler_backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "TRACKS")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@trackId")
 public class Track {
 
     public Track(String title, Artist artist) {
@@ -35,9 +38,9 @@ public class Track {
     @JoinColumn(name = "ARTIST_ID")
     private Artist artist;
 
-    @OneToMany(mappedBy = "track")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "track")
     private List<UsersTrack> usersTracks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "track")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "track")
     private List<Comment> comments = new ArrayList<>();
 }
