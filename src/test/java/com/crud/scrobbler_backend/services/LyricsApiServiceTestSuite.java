@@ -22,7 +22,7 @@ class LyricsApiServiceTestSuite {
     private LyricsClient client;
 
     @Test
-    void shouldGetLyrics() {
+    void shouldGetLyrics() throws Exception {
         //Given
         String artistName = "Test name";
         String title = "Test title";

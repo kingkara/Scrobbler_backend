@@ -65,16 +65,13 @@ class UsersTrackControllerTestSuite {
                 .andExpect(jsonPath("$[0].track.artist.name", is("Test artist")))
                 .andExpect(jsonPath("$[0].track.artist.spotifyArtistId", is("Test artist id")))
                 .andExpect(jsonPath("$[0].track.title", is("Test title")))
-                .andExpect(jsonPath("$[1].user.username", is("Test name")))
-                .andExpect(jsonPath("$[1].user.email", is("Test email")))
-                .andExpect(jsonPath("$[1].user.spotifyId", is("Test spotify id")))
-                .andExpect(jsonPath("$[1].track.artist.name", is("Test artist")))
-                .andExpect(jsonPath("$[1].track.artist.spotifyArtistId", is("Test artist id")))
+                .andExpect(jsonPath("$[1].user", is(1)))
+                .andExpect(jsonPath("$[1].track.artist", is(3)))
                 .andExpect(jsonPath("$[1].track.title", is("Test title 2")));
     }
 
     @Test
-    void shpuldGetFavouriteTracks() throws Exception {
+    void shouldGetFavouriteTracks() throws Exception {
         //Given
         User user = new User(123L, "Test name", "Test email", "Test spotify id",
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
@@ -109,11 +106,8 @@ class UsersTrackControllerTestSuite {
                 .andExpect(jsonPath("$[0].track.artist.spotifyArtistId", is("Test artist id")))
                 .andExpect(jsonPath("$[0].track.title", is("Test title")))
                 .andExpect(jsonPath("$[0].favouriteStatus", is(true)))
-                .andExpect(jsonPath("$[1].user.username", is("Test name")))
-                .andExpect(jsonPath("$[1].user.email", is("Test email")))
-                .andExpect(jsonPath("$[1].user.spotifyId", is("Test spotify id")))
-                .andExpect(jsonPath("$[1].track.artist.name", is("Test artist")))
-                .andExpect(jsonPath("$[1].track.artist.spotifyArtistId", is("Test artist id")))
+                .andExpect(jsonPath("$[1].user", is(1)))
+                .andExpect(jsonPath("$[1].track.artist", is(3)))
                 .andExpect(jsonPath("$[1].track.title", is("Test title 2")))
                 .andExpect(jsonPath("$[1].favouriteStatus", is(true)));
     }
@@ -193,32 +187,20 @@ class UsersTrackControllerTestSuite {
                 .andExpect(jsonPath("$[0].track.artist.spotifyArtistId", is("Test artist id")))
                 .andExpect(jsonPath("$[0].track.title", is("Test title")))
                 .andExpect(jsonPath("$[0].count", is(25)))
-                .andExpect(jsonPath("$[1].user.username", is("Test name")))
-                .andExpect(jsonPath("$[1].user.email", is("Test email")))
-                .andExpect(jsonPath("$[1].user.spotifyId", is("Test spotify id")))
-                .andExpect(jsonPath("$[1].track.artist.name", is("Test artist")))
-                .andExpect(jsonPath("$[1].track.artist.spotifyArtistId", is("Test artist id")))
+                .andExpect(jsonPath("$[1].user", is(1)))
+                .andExpect(jsonPath("$[1].track.artist", is(3)))
                 .andExpect(jsonPath("$[1].track.title", is("Test title 2")))
                 .andExpect(jsonPath("$[1].count", is(20)))
-                .andExpect(jsonPath("$[2].user.username", is("Test name")))
-                .andExpect(jsonPath("$[2].user.email", is("Test email")))
-                .andExpect(jsonPath("$[2].user.spotifyId", is("Test spotify id")))
-                .andExpect(jsonPath("$[2].track.artist.name", is("Test artist")))
-                .andExpect(jsonPath("$[2].track.artist.spotifyArtistId", is("Test artist id")))
+                .andExpect(jsonPath("$[2].user", is(1)))
+                .andExpect(jsonPath("$[2].track.artist", is(3)))
                 .andExpect(jsonPath("$[2].track.title", is("Test title 3")))
                 .andExpect(jsonPath("$[2].count", is(15)))
-                .andExpect(jsonPath("$[3].user.username", is("Test name")))
-                .andExpect(jsonPath("$[3].user.email", is("Test email")))
-                .andExpect(jsonPath("$[3].user.spotifyId", is("Test spotify id")))
-                .andExpect(jsonPath("$[3].track.artist.name", is("Test artist")))
-                .andExpect(jsonPath("$[3].track.artist.spotifyArtistId", is("Test artist id")))
+                .andExpect(jsonPath("$[3].user", is(1)))
+                .andExpect(jsonPath("$[3].track.artist", is(3)))
                 .andExpect(jsonPath("$[3].track.title", is("Test title 4")))
                 .andExpect(jsonPath("$[3].count", is(10)))
-                .andExpect(jsonPath("$[4].user.username", is("Test name")))
-                .andExpect(jsonPath("$[4].user.email", is("Test email")))
-                .andExpect(jsonPath("$[4].user.spotifyId", is("Test spotify id")))
-                .andExpect(jsonPath("$[4].track.artist.name", is("Test artist")))
-                .andExpect(jsonPath("$[4].track.artist.spotifyArtistId", is("Test artist id")))
+                .andExpect(jsonPath("$[4].user", is(1)))
+                .andExpect(jsonPath("$[4].track.artist", is(3)))
                 .andExpect(jsonPath("$[4].track.title", is("Test title 5")))
                 .andExpect(jsonPath("$[4].count", is(5)));
     }

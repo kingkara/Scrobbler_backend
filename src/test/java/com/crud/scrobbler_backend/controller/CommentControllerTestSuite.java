@@ -71,9 +71,7 @@ class CommentControllerTestSuite {
                 .andExpect(jsonPath("$[1].user.username", is("Test name 2")))
                 .andExpect(jsonPath("$[1].user.email", is("Test email 2")))
                 .andExpect(jsonPath("$[1].user.spotifyId", is("Test spotify id 2")))
-                .andExpect(jsonPath("$[1].track.title", is("Test title")))
-                .andExpect(jsonPath("$[1].track.artist.name", is("Test artist")))
-                .andExpect(jsonPath("$[1].track.artist.spotifyArtistId", is("Test artist id")));
+                .andExpect(jsonPath("$[1].track", is(2)));
     }
 
     @Test
