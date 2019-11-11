@@ -36,7 +36,7 @@ class TracksControllerTestSuite {
     void shouldGetTrack() throws Exception {
         //Given
         Artist artist = new Artist("Test name", "Test id");
-        TrackDto trackDto = new TrackDto(123L, "Test title", artist, new ArrayList<>(), new ArrayList<>());
+        TrackDto trackDto = new TrackDto(123L, "Test title", artist, new ArrayList<>(), new ArrayList<>(), artist.getName());
         long id = trackDto.getId();
 
         when(mapper.mapToTrackDto(service.getTrack(id))).thenReturn(trackDto);

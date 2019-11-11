@@ -1,11 +1,9 @@
 package com.crud.scrobbler_backend.controller;
 
 import com.crud.scrobbler_backend.domain.*;
-import com.crud.scrobbler_backend.exceptions.CommentNotFoundException;
 import com.crud.scrobbler_backend.mapper.CommentsMapper;
 import com.crud.scrobbler_backend.services.CommentsService;
 import com.google.gson.Gson;
-import com.sun.org.apache.xpath.internal.Arg;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -46,8 +44,8 @@ class CommentControllerTestSuite {
         Track track = new Track("Test title", artist);
         long id = track.getId();
 
-        CommentDto comment = new CommentDto("Test comment", user, track);
-        CommentDto comment1 = new CommentDto("Test comment 2", user1, track);
+        CommentDto comment = new CommentDto("Test comment", user.getUsername(), track.getTitle());
+        CommentDto comment1 = new CommentDto("Test comment 2", user1.getUsername(), track.getTitle());
         List<CommentDto> comments = new ArrayList<>();
         comments.add(comment);
         comments.add(comment1);
@@ -61,17 +59,11 @@ class CommentControllerTestSuite {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].text", is("Test comment")))
-                .andExpect(jsonPath("$[0].user.username", is("Test name")))
-                .andExpect(jsonPath("$[0].user.email", is("Test email")))
-                .andExpect(jsonPath("$[0].user.spotifyId", is("Test spotify id")))
-                .andExpect(jsonPath("$[0].track.title", is("Test title")))
-                .andExpect(jsonPath("$[0].track.artist.name", is("Test artist")))
-                .andExpect(jsonPath("$[0].track.artist.spotifyArtistId", is("Test artist id")))
+                .andExpect(jsonPath("$[0].username", is("Test name")))
+                .andExpect(jsonPath("$[0].trackTitle", is("Test title")))
                 .andExpect(jsonPath("$[1].text", is("Test comment 2")))
-                .andExpect(jsonPath("$[1].user.username", is("Test name 2")))
-                .andExpect(jsonPath("$[1].user.email", is("Test email 2")))
-                .andExpect(jsonPath("$[1].user.spotifyId", is("Test spotify id 2")))
-                .andExpect(jsonPath("$[1].track", is(2)));
+                .andExpect(jsonPath("$[1].username", is("Test name 2")))
+                .andExpect(jsonPath("$[1].trackTitle", is("Test title")));
     }
 
     @Test
@@ -82,7 +74,7 @@ class CommentControllerTestSuite {
         Track track = new Track("Test title", artist);
 
         Comment comment = new Comment("Test comment", user, track);
-        CommentDto commentDto = new CommentDto("Test comment", user, track);
+        CommentDto commentDto = new CommentDto("Test comment", user.getUsername(), track.getTitle());
 
         Gson gson = new Gson();
         String jsonContent = gson.toJson(commentDto);
@@ -104,8 +96,8 @@ class CommentControllerTestSuite {
         Artist artist = new Artist("Test artist", "Test artist id");
         Track track = new Track("Test title", artist);
 
-        CommentDto commentDto = new CommentDto(123L, "Test comment", user, track);
-        CommentDto updatedComment = new CommentDto(123L, "Updated", user, track);
+        CommentDto commentDto = new CommentDto("Test comment", user.getUsername(), track.getTitle());
+        CommentDto updatedComment = new CommentDto("Updated", user.getUsername(), track.getTitle());
 
         Gson gson = new Gson();
         String jsonContent = gson.toJson(commentDto);
@@ -128,7 +120,7 @@ class CommentControllerTestSuite {
         Track track = new Track("Test title", artist);
 
         Comment comment = new Comment("Test comment", user, track);
-        CommentDto commentDto = new CommentDto(123L, "Test comment", user, track);
+        CommentDto commentDto = new CommentDto(123L,"Test comment", user, track, user.getUsername(), track.getTitle());
 
         when(service.getComment(commentDto.getId())).thenReturn(comment);
         when(service.addComment(mapper.mapToComment(ArgumentMatchers.any(CommentDto.class)))).thenReturn(comment);

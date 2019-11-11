@@ -21,7 +21,7 @@ class CommentsMapperTestSuite {
     @Test
     void shouldMapToComment() {
         //Given
-        CommentDto commentDto = new CommentDto("test text", new User(), new Track());
+        CommentDto commentDto = new CommentDto("test text", "testUser", "test Title");
 
         //When
         Comment comment = mapper.mapToComment(commentDto);
