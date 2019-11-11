@@ -4,7 +4,6 @@ import com.crud.scrobbler_backend.domain.spotify.SpotifyCurrentlyPlayedDto;
 import com.crud.scrobbler_backend.domain.spotify.SpotifyFullTrackDto;
 import com.crud.scrobbler_backend.domain.spotify.SpotifyItemDto;
 import com.crud.scrobbler_backend.domain.spotify.SpotifyItemsDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,34 +29,41 @@ public class SpotifyClient {
 
     private String spotifyToken = getTokenFromSpotifyServer();
 
-    public List<SpotifyFullTrackDto> getRecentlyPlayed() throws JsonProcessingException {
+    public List<SpotifyFullTrackDto> getRecentlyPlayed() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", "application/json");
         headers.add("Content-Type", "application/json");
         headers.add("Authorization", "Bearer " + spotifyToken);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    spotifyApiEndpoint + "recently-played?type=track&limit=50", HttpMethod.GET, entity, String.class);
 
-        ResponseEntity<String> response = restTemplate.exchange(
-                spotifyApiEndpoint + "recently-played?type=track&limit=50", HttpMethod.GET, entity, String.class);
-
-        String tracksResponse = response.getBody();
-        ObjectMapper mapper = new ObjectMapper();
-        SpotifyItemsDto objects = mapper.readValue(Objects.requireNonNull(tracksResponse), SpotifyItemsDto.class);
-        return objects.getSpotifyTrackDtos();
+            String tracksResponse = response.getBody();
+            ObjectMapper mapper = new ObjectMapper();
+            SpotifyItemsDto objects = mapper.readValue(Objects.requireNonNull(tracksResponse), SpotifyItemsDto.class);
+            return objects.getSpotifyTrackDtos();
+        } catch (Exception ignored) {
+        }
+        return new ArrayList<>();
     }
 
-    public SpotifyCurrentlyPlayedDto getCurrentPlayedTrack() throws JsonProcessingException {
+    public SpotifyCurrentlyPlayedDto getCurrentPlayedTrack() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + spotifyToken);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(
-                spotifyApiEndpoint + "currently-playing", HttpMethod.GET, entity, String.class);
-        String tracksResponse = response.getBody();
-        ObjectMapper mapper = new ObjectMapper();
-        SpotifyItemDto object = mapper.readValue(Objects.requireNonNull(tracksResponse), SpotifyItemDto.class);
-        return object.getSpotifyCurrentlyPlayed();
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    spotifyApiEndpoint + "currently-playing", HttpMethod.GET, entity, String.class);
+            String tracksResponse = response.getBody();
+            ObjectMapper mapper = new ObjectMapper();
+            SpotifyItemDto object = mapper.readValue(Objects.requireNonNull(tracksResponse), SpotifyItemDto.class);
+            return object.getSpotifyCurrentlyPlayed();
+        } catch (Exception ignored) {
+        }
+        return new SpotifyCurrentlyPlayedDto();
     }
 }

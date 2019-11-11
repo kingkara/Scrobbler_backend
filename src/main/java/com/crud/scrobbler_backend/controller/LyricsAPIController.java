@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/v1/SongMeanings")
+@RequestMapping("/v1")
 public class LyricsAPIController {
     @Autowired
     private LyricsApiService service;

@@ -22,8 +22,8 @@ public class UsersArtistsController {
         return mapper.mapToUsersArtistDtoList(service.getAllArtists(userId));
     }
 
-    @GetMapping(value = "/usersArtists")
-    public List<UsersArtistDto> getTopFive(@RequestBody long userId) throws Exception {
+    @GetMapping(value = "/usersTopArtists/{userId}")
+    public List<UsersArtistDto> getTopFive(@PathVariable long userId) throws Exception {
         return mapper.mapToUsersArtistDtoList(service.getTopArtists(userId));
     }
 

@@ -15,9 +15,5 @@ public class TrackDto {
     private Artist artist;
     private List<UsersTrack> usersTracks;
     private List<Comment> comment;
-
-    public TrackDto(String title, Artist artist) {
-        this.title = title;
-        this.artist = artist;
-    }
+    private String artistName;
 }

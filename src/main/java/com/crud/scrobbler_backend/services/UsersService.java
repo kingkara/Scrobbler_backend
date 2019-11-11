@@ -35,4 +35,8 @@ public class UsersService {
         User user = repository.findById(id).orElseThrow(UserNotFoundException::new);
         repository.delete(user);
     }
+
+    public User findByUsername(final String username) {
+        return repository.findByUsername(username);
+    }
 }

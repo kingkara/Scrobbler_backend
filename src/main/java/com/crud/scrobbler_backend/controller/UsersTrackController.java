@@ -22,8 +22,8 @@ public class UsersTrackController {
         return mapper.mapToUsersTrackDtoList(service.getAllUsersTracks(userId));
     }
 
-    @GetMapping(value = "/usersTracks")
-    public List<UsersTrackDto> getFavouriteTracks(@RequestBody long userId) throws Exception {
+    @GetMapping(value = "/usersTracks/fav/{userId}")
+    public List<UsersTrackDto> getFavouriteTracks(@PathVariable long userId) throws Exception {
         return mapper.mapToUsersTrackDtoList(service.getFavourites(userId));
     }
 

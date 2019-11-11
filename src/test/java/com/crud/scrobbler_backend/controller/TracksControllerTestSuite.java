@@ -42,9 +42,9 @@ class TracksControllerTestSuite {
         when(mapper.mapToTrackDto(service.getTrack(id))).thenReturn(trackDto);
 
         //When & Then
-        mockMvc.perform(get("/v1/tracks/123").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(get("/v1/tracks/Test%20title").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
-                .param("trackId", Long.toString(id)))
+                .param("trackName", "Test title"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title", is("Test title")))
                 .andExpect(jsonPath("$.artist.name", is("Test name")))

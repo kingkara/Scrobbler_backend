@@ -33,4 +33,8 @@ public class TracksService {
     public List<Track> getTracks() {
         return repository.findAll();
     }
+
+    public List<Track> getTracksByArtistName(final String artistName) {
+        return repository.findByArtist_Name(artistName);
+    }
 }

@@ -18,5 +18,4 @@ public interface UsersTracksRepository extends CrudRepository<UsersTrack, Long> 
     UsersTrack findByUser_IdAndTrack_Id(long userId, long trackId);
 
     UsersTrack findById(UsersTrack.UsersTrackIdBuilder id);
-
 }

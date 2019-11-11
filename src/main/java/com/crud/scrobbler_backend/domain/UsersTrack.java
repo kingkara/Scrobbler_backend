@@ -48,9 +48,6 @@ public class UsersTrack {
         this.id.userId = user.getId();
         this.count = 1;
         this.favouriteStatus = false;
-
-//        user.getUsersTracks().add(this);
-//        track.getUsersTracks().add(this);
     }
 
     @EmbeddedId

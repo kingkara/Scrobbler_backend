@@ -14,4 +14,6 @@ public interface UsersRepository extends CrudRepository<User, Long> {
     List<User> findAll();
 
     User findUserBySpotifyId(String spotifyId);
+
+    User findByUsername(String username);
 }

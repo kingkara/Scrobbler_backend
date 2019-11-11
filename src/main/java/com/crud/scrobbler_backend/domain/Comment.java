@@ -27,10 +27,12 @@ public class Comment {
     @Column(name = "TEXT")
     private String text;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "TRACK_ID")
     private Track track;

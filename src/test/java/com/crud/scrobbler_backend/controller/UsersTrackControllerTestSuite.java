@@ -88,14 +88,11 @@ class UsersTrackControllerTestSuite {
         usersTrackDtos.add(usersTrackDto);
         usersTrackDtos.add(usersTrackDto2);
 
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(id);
-
         when(mapper.mapToUsersTrackDtoList(service.getAllUsersTracks(id))).thenReturn(usersTrackDtos);
 
         //When & Then
-        mockMvc.perform(get("/v1/usersTracks").contentType(MediaType.APPLICATION_JSON)
-                .content(jsonContent)
+        mockMvc.perform(get("/v1/usersTracks/fav/123").contentType(MediaType.APPLICATION_JSON)
+                .param("userId", Long.toString(user.getId()))
                 .characterEncoding("UTF-8"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))

@@ -10,7 +10,7 @@ public class LyricsApiService {
     @Autowired
     private LyricsClient client;
 
-    public LyricsDto getLyrics(String artistName, String title) throws Exception {
+    public LyricsDto getLyrics(String artistName, String title) {
         return client.getTrackLyrics(artistName, title);
     }
 }

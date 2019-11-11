@@ -25,6 +25,7 @@ public class UsersTracksService {
         UsersTrack trackToUpdate = repository.findByUser_IdAndTrack_Id(userId, trackId);
         if (trackToUpdate.isFavouriteStatus()) {
             trackToUpdate.setFavouriteStatus(false);
+            return repository.save(trackToUpdate);
         }
         trackToUpdate.setFavouriteStatus(true);
         return repository.save(trackToUpdate);

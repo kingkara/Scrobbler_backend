@@ -19,7 +19,7 @@ public class CommentController {
     private CommentsMapper mapper;
 
     @GetMapping(value = "/comments/{trackId}")
-    public List<CommentDto> getComments(@PathVariable long trackId) throws Exception {
+    public List<CommentDto> getComments(@PathVariable long trackId) {
         return mapper.mapToCommentDtoList(service.getComments(trackId));
     }
 

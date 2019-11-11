@@ -33,5 +33,4 @@ public class ArtistsService {
     public Artist addArtist(final Artist artist) {
         return repository.save(artist);
     }
-
 }

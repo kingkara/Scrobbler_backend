@@ -17,7 +17,7 @@ public class UsersArtistsMapper {
     public List<UsersArtistDto> mapToUsersArtistDtoList(final List<UsersArtist> usersArtists) {
         return usersArtists.stream()
                 .map(usersArtist -> new UsersArtistDto(usersArtist.getId(), usersArtist.getCount(), usersArtist.getLastPlayedTime(),
-                        usersArtist.getUser(), usersArtist.getArtist()))
+                        usersArtist.getUser(), usersArtist.getArtist(), usersArtist.getArtist().getName()))
                 .collect(Collectors.toList());
     }
 }

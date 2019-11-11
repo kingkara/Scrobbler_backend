@@ -31,7 +31,7 @@ public class SpotifyFacade {
     @Autowired
     private UsersArtistsAndTracksValidator usersArtistsAndTracksValidator;
 
-    public void saveUsersTracksAndArtists() throws JsonProcessingException {
+    public void saveUsersTracksAndArtists() {
         List<SpotifyFullTrack> lastlyPlayed = spotifyFullTracksMapper.mapToSpotifyTrackList(spotifyService.getPlayback());
         lastlyPlayed.sort(new StringSorter());
         lastlyPlayed.forEach(track -> {

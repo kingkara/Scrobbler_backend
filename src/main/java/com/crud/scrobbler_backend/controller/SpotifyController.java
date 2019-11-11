@@ -16,13 +16,12 @@ public class SpotifyController {
     private SpotifyService service;
 
     @GetMapping(value = "/playback")
-    public List<SpotifyFullTrackDto> getPlayback() throws Exception {
+    public List<SpotifyFullTrackDto> getPlayback() {
         return service.getPlayback();
     }
 
     @GetMapping(value = "/current")
-    public SpotifyCurrentlyPlayedDto getCurrentPlaying() throws Exception {
+    public SpotifyCurrentlyPlayedDto getCurrentPlaying() {
         return service.getCurrentPlaying();
     }
-
 }

@@ -16,14 +16,15 @@ public class UsersTracksMapper {
 
     public UsersTrackDto mapToUsersTrackDto(final UsersTrack usersTrack) {
         return new UsersTrackDto(usersTrack.getId(), usersTrack.getLastPlayedTime(), usersTrack.getCount(), usersTrack.isFavouriteStatus(),
-                usersTrack.getUser(), (usersTrack.getTrack()));
+                usersTrack.getUser(), usersTrack.getTrack(), usersTrack.getTrack().getTitle(), usersTrack.getTrack().getArtist().getName());
     }
 
     public List<UsersTrackDto> mapToUsersTrackDtoList(final List<UsersTrack> usersTracks) {
         return usersTracks.stream()
                 .map(usersTrack -> new UsersTrackDto(usersTrack.getId(),
                         usersTrack.getLastPlayedTime(), usersTrack.getCount(), usersTrack.isFavouriteStatus(),
-                        usersTrack.getUser(), usersTrack.getTrack()))
+                        usersTrack.getUser(), usersTrack.getTrack(), usersTrack.getTrack().getTitle(),
+                        usersTrack.getTrack().getArtist().getName()))
                 .collect(Collectors.toList());
     }
 }

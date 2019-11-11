@@ -13,5 +13,4 @@ import lombok.NoArgsConstructor;
 public class SpotifyItemDto {
     @JsonProperty ("item")
     private SpotifyCurrentlyPlayedDto spotifyCurrentlyPlayed;
-
 }

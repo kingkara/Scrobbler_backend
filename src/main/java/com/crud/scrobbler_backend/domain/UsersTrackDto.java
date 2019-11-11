@@ -16,9 +16,13 @@ public class UsersTrackDto {
     private boolean favouriteStatus;
     private User user;
     private Track track;
+    private String trackTitle;
+    private String artistName;
 
     public UsersTrackDto(User user, Track track) {
         this.user = user;
         this.track = track;
+        this.trackTitle = track.getTitle();
+        this.artistName = track.getArtist().getName();
     }
 }

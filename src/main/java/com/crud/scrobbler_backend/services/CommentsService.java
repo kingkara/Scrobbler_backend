@@ -2,7 +2,6 @@ package com.crud.scrobbler_backend.services;
 
 import com.crud.scrobbler_backend.domain.Comment;
 import com.crud.scrobbler_backend.exceptions.CommentNotFoundException;
-import com.crud.scrobbler_backend.exceptions.TrackNotFoundException;
 import com.crud.scrobbler_backend.repository.CommentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +17,8 @@ public class CommentsService {
         return repository.findById(id).orElseThrow(CommentNotFoundException::new);
     }
 
-    public List<Comment> getComments(final long trackId) throws TrackNotFoundException {
-        return repository.findAllByTrack_Id(trackId);
+    public List<Comment> getComments(final long trackId) {
+        return repository.findByTrack_Id(trackId);
     }
 
     public Comment addComment(final Comment comment) {

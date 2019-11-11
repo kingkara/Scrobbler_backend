@@ -14,4 +14,6 @@ public interface TracksRepository extends CrudRepository<Track, Long> {
     List<Track> findAll();
 
     Track findTrackByTitle(String title);
+
+    List<Track> findByArtist_Name(String artistName);
 }

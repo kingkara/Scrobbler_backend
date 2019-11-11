@@ -51,9 +51,6 @@ public class UsersArtist {
         this.id.userId = user.getId();
         this.id.artistId = artist.getArtistId();
         this.count = 1;
-//
-//        user.getUsersArtists().add(this);
-//        artist.getUsersArtist().add(this);
     }
 
     @EmbeddedId

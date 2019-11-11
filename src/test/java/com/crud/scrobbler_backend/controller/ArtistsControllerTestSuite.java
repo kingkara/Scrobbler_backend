@@ -39,9 +39,9 @@ class ArtistsControllerTestSuite {
         when(mapper.mapToArtistDto(service.getArtistById(id))).thenReturn(artist);
 
         //When & Then
-        mockMvc.perform(get("/v1/artists/123").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(get("/v1/artists/Test%20name").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
-                .param("artistId", Long.toString(id)))
+                .param("artistName", "Test name"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("Test name")))
                 .andExpect(jsonPath("$.spotifyArtistId", is("Test id")))

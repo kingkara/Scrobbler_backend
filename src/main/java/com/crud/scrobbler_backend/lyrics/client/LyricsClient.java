@@ -20,7 +20,7 @@ public class LyricsClient {
 
     private static String lyricsToken = "CNtQ9WrnayNhkJ0IaSMSmNqVGN9DWGxFxM5dkLWBg6BjRn6rgW2aatQ98OQdUrkA";
 
-    public LyricsDto getTrackLyrics(String artistName, String title) throws Exception {
+    public LyricsDto getTrackLyrics(String artistName, String title) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -28,14 +28,14 @@ public class LyricsClient {
                 "(KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(
-                lyricsApiEndpoint + artistName + "/" + title + "?apikey=" + lyricsToken, HttpMethod.GET, entity, String.class);
-
-        String responseBody = response.getBody();
-        ObjectMapper mapper = new ObjectMapper();
-        ResultDto lyricsResponse = mapper.readValue(Objects.requireNonNull(responseBody), ResultDto.class);
-        if (lyricsResponse != null) {
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    lyricsApiEndpoint + artistName + "/" + title + "?apikey=" + lyricsToken, HttpMethod.GET, entity, String.class);
+            String responseBody = response.getBody();
+            ObjectMapper mapper = new ObjectMapper();
+            ResultDto lyricsResponse = mapper.readValue(Objects.requireNonNull(responseBody), ResultDto.class);
             return lyricsResponse.getLyricsTrackDto().getTrackWithLyrics();
+        } catch (Exception ignored) {
         }
         return new LyricsDto();
     }

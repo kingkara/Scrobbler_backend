@@ -38,7 +38,7 @@ class LyricsAPIControllerTestSuite {
         String jsonContent = gson.toJson(lyricsDto);
 
         //When & Then
-        mockMvc.perform(get("/v1/SongMeanings/lyrics/Test name/Test title").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(get("/v1/lyrics/Test name/Test title").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .param("artistName", artist.getName())
                 .param("title", track.getTitle())

@@ -101,15 +101,12 @@ class UsersArtistsControllerTestSuite {
         usersArtists.add(usersArtist4);
         usersArtists.add(usersArtist5);
 
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(id);
-
         when(mapper.mapToUsersArtistDtoList(service.getTopArtists(id))).thenReturn(usersArtists);
 
         //When & Then
-        mockMvc.perform(get("/v1/usersArtists").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(get("/v1/usersTopArtists/123").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
-                .content(jsonContent))
+                .param("userId", Long.toString(user.getId())))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(5)))
                 .andExpect(jsonPath("$[0].user.username", is("Test name")))
