@@ -12,7 +12,7 @@ public class GetTracksFromSpotifyScheduler {
     @Autowired
     private SpotifyFacade spotifyFacade;
 
-    @Scheduled(cron = "0 0/2 * * * ?")
+    @Scheduled(fixedRate = 120000)
     public void getTracksFromSpotify() {
         spotifyFacade.saveUsersTracksAndArtists();
     }
