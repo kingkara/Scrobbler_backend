@@ -18,7 +18,7 @@ public class LyricsClient {
     @Autowired
     private RestTemplate restTemplate;
 
-    private static String lyricsToken = "CNtQ9WrnayNhkJ0IaSMSmNqVGN9DWGxFxM5dkLWBg6BjRn6rgW2aatQ98OQdUrkA";
+    private static final String lyricsToken = "CNtQ9WrnayNhkJ0IaSMSmNqVGN9DWGxFxM5dkLWBg6BjRn6rgW2aatQ98OQdUrkA";
 
     public LyricsDto getTrackLyrics(String artistName, String title) {
 
