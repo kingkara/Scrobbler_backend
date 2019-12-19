@@ -13,7 +13,7 @@ public class LyricsAPIController {
     private LyricsApiService service;
 
     @GetMapping(value = "/lyrics/{artistName}/{title}")
-    public LyricsDto getLyrics(@PathVariable String artistName, @PathVariable String title) throws Exception {
+    public LyricsDto getLyrics(@PathVariable String artistName, @PathVariable String title) {
         return service.getLyrics(artistName, title);
     }
 }

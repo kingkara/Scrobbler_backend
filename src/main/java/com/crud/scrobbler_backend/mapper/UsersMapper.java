@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 public class UsersMapper {
 
     public User mapToUser(final UserDto userDto) {
-        return new User(userDto.getUsername(), userDto.getEmail(), userDto.getSpotifyId());
+        return new User(userDto.getId(), userDto.getUsername(), userDto.getEmail(), userDto.getSpotifyId(),
+                userDto.getUserArtistId(), userDto.getUserTrackId(), userDto.getComments());
     }
 
     public UserDto mapToUserDto(final User user) {

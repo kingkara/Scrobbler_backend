@@ -3,9 +3,12 @@ package com.crud.scrobbler_backend.services;
 import com.crud.scrobbler_backend.domain.UsersTrack;
 import com.crud.scrobbler_backend.exceptions.UsersTrackNotFoundException;
 import com.crud.scrobbler_backend.repository.UsersTracksRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,12 +16,19 @@ public class UsersTracksService {
     @Autowired
     private UsersTracksRepository repository;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsersTracksService.class);
+
     public List<UsersTrack> getAllUsersTracks(final long userId) throws UsersTrackNotFoundException {
         return repository.findAllByUser_Id(userId);
     }
 
-    public List<UsersTrack> getTopTracks(final long userId) throws UsersTrackNotFoundException {
-        return repository.findAllByUser_IdOrderByCountDesc(userId).subList(0, 5);
+    public List<UsersTrack> getTopTracks(final long userId)  {
+        try {
+            return repository.findAllByUser_IdOrderByCountDesc(userId).subList(0, 5);
+        } catch (Exception e) {
+            LOGGER.warn("Users Tracks not found.");
+        }
+        return new ArrayList<>();
     }
 
     public UsersTrack changeFavouriteStatus(final long userId, final long trackId) {

@@ -9,7 +9,8 @@ import com.crud.scrobbler_backend.services.UsersService;
 import com.crud.scrobbler_backend.spotify.sorter.StringSorter;
 import com.crud.scrobbler_backend.spotify.validator.ArtistsAndTracksValidator;
 import com.crud.scrobbler_backend.spotify.validator.UsersArtistsAndTracksValidator;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Component
 public class SpotifyFacade {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpotifyFacade.class);
     @Value("${spotify.app.user.id}")
     private String clientId;
     @Autowired
@@ -38,12 +40,13 @@ public class SpotifyFacade {
             try {
                 Track validatedTrack = artistsAndTracksValidator.validateTrack(track);
                 User user = usersService.getUserBySpotifyId(clientId);
-                usersArtistsAndTracksValidator.validateUsersArtist(user, validatedTrack.getArtist(), track.getPlayedAt());
-                usersArtistsAndTracksValidator.validateUsersTrack(user, validatedTrack, track.getPlayedAt());
+                if(user!=null) {
+                    usersArtistsAndTracksValidator.validateUsersArtist(user, validatedTrack.getArtist(), track.getPlayedAt());
+                    usersArtistsAndTracksValidator.validateUsersTrack(user, validatedTrack, track.getPlayedAt());
+                }
             } catch (UsersArtistNotFoundException e) {
-                e.printStackTrace();
+               LOGGER.warn("Users artists not found.");
             }
         });
-
     }
 }
